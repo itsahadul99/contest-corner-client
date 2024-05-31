@@ -41,7 +41,7 @@ const Login = () => {
                                 id='email'
                                 required
                                 placeholder='Enter Your Email Here'
-                                className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900'
+                                className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-secondary bg-gray-200 text-gray-900'
                                 data-temp-mail-org='0'
                             />
                         </div>
@@ -58,18 +58,18 @@ const Login = () => {
                                 id='password'
                                 required
                                 placeholder='*******'
-                                className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900'
+                                className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-secondary bg-gray-200 text-gray-900'
                             />
                         </div>
                     </div>
 
                     <div>
                         <button
-                            // disabled={loading}
+                            disabled={loading}
                             type='submit'
                             className='bg-primary w-full rounded-md py-3 text-white text-center'
                         >
-                            Continue
+                            {loading ? <TbFidgetSpinner className='animate-spin' /> : 'Continue'}
                         </button>
                     </div>
                 </form>
@@ -95,7 +95,7 @@ const Login = () => {
                 <p className='px-6 text-sm text-center text-gray-400'>
                     Don&apos;t have an account yet?{' '}
                     <Link
-                        to='/signup'
+                        to='/signUp'
                         className='hover:underline hover:text-rose-500 text-gray-600'
                     >
                         Sign up
