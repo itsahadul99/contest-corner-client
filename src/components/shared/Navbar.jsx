@@ -1,12 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
-
     const { user, logOut, loading } = useContext(AuthContext)
-
-    // console.log(user)
     const links = <>
         <li>
             <NavLink to='/' className={({ isActive }) =>
@@ -44,10 +42,10 @@ const Navbar = () => {
     const handleLogOut = () => {
         logOut()
             .then(() => {
-                // toast.success('Successfully logged out!')
+                toast.success('Successfully logged out!')
             })
             .catch(error => {
-                // toast.error(`${error.message}`)
+                toast.error(`${error.message}`)
             })
     }
     if (loading) {
@@ -70,11 +68,6 @@ const Navbar = () => {
                     {/* <img className="w-[150px] h-[45px] border rounded-lg mr-1 lg:mr-3" src="https://i.ibb.co/c1717sJ/lOGO.png" alt="" /> */}
                     <Link to='/' className="text-sm md:text-2xl lg:text-3xl text-primary font-black">Contest <span className=" text-secondary">Corner</span></Link>
                 </div>
-                {/* <div className="navbar-center hidden lg:flex">
-                    <ul className="flex gap-5 items-center ">
-                        {links}
-                    </ul>
-                </div> */}
                 <div className="navbar-end">
                     <div className="flex justify-center gap-3 items-center">
                         <div className="dropdown dropdown-end">
@@ -85,17 +78,17 @@ const Navbar = () => {
                                             <img alt="User pic" src={user?.photoURL} />
                                         </div>
                                     </div>
-                                    <ul tabIndex={0} className="mt-3 z-20 bg-base-200 p-5 space-y-2 font-medium shadow menu menu-sm dropdown-content rounded-box w-52 text-sm">
-                                        <li>Username: {user?.displayName}</li>
-                                        <li><button onClick={handleLogOut}>Logout</button></li>
-                                    </ul>
+                                    <div tabIndex={0} className="mt-3 z-20 bg-base-200 space-y-2 shadow menu menu-sm dropdown-content rounded-box w-52 font-bold *:p-2">
+                                        <p className="w-full hover:bg-gray-200">Username: {user?.displayName}</p>
+                                        <button className="hover:bg-gray-200" onClick={handleLogOut}>Logout</button>
+                                    </div>
                                 </div>
                                     : <>
                                         <div className="flex gap-2 items-center">
                                             <ul className="flex gap-5 items-center mr-3">
                                                 {links}
                                             </ul>
-                                            <Link to="/login"><button className="btn btn-outline btn-xs hover:bg-secondary lg:btn-sm border-primary text-primary">LogIn </button></Link>
+                                            <Link to="login"><button className="btn btn-outline btn-xs hover:bg-secondary lg:btn-sm border-primary text-primary">LogIn </button></Link>
                                         </div>
                                     </>
                             }
