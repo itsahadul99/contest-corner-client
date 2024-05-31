@@ -1,0 +1,91 @@
+[
+    {
+      "contestName": "Creative Logo Design Challenge",
+      "image": "https://i.ibb.co/V9kS9jk/log0-challenge.jpg",
+      "contestDescription": "Unleash your creativity and design a unique logo for our upcoming product launch. Impress us with your artistic skills and stand a chance to win amazing prizes!",
+      "contestPrice": "Free Entry",
+      "prize": "$500 Cash Prize",
+      "taskSubmissionTextInstruction": "Submit your logo design in PNG or SVG format, ensuring it is high-resolution and includes both a light and dark background version.",
+      "contestTypeTags": "Image Design Contests",
+      "contestDeadline": "June 30, 2024",
+      "participationCount": 0
+    },
+    {
+      "contestName": "Ultimate Article Writing Contest",
+      "image": "https://i.ibb.co/41vYVqf/writing-competition.jpg",
+      "contestDescription": "Share your thoughts and insights on a topic of your choice. The best article will be featured on our blog and the author will receive a special prize!",
+      "contestPrice": "$10 Entry Fee",
+      "prize": "$300 Amazon Gift Card",
+      "taskSubmissionTextInstruction": "Submit your article as a Word document with a minimum of 1500 words and ensure it is well-researched and original.",
+      "contestTypeTags": "Article Writing",
+      "contestDeadline": "July 15, 2024",
+      "participationCount": 0
+    },
+    {
+      "contestName": "Marketing Strategy Mastermind",
+      "image": "https://i.ibb.co/QNt6wrY/marketing-statege.jpg",
+      "contestDescription": "Develop a groundbreaking marketing strategy for our new product line. Showcase your marketing expertise and compete for a substantial cash prize!",
+      "contestPrice": "$20 Entry Fee",
+      "prize": "$1000 Cash Prize",
+      "taskSubmissionTextInstruction": "Submit a detailed marketing strategy document in PDF format, including market analysis, target audience, and execution plan.",
+      "contestTypeTags": "Marketing Strategy",
+      "contestDeadline": "August 1, 2024",
+      "participationCount": 0
+    },
+    {
+      "contestName": "Digital Advertisement Innovation Contest",
+      "image": "https://via.placeholder.com/150",
+      "contestDescription": "Create an innovative digital advertisement for our latest campaign. Stand out with your creativity and win fantastic prizes!",
+      "contestPrice": "Free Entry",
+      "prize": "$700 Cash Prize",
+      "taskSubmissionTextInstruction": "Submit your digital advertisement in MP4 format, with a maximum duration of 30 seconds. Ensure it is high-quality and engaging.",
+      "contestTypeTags": "Digital Advertisement Contests",
+      "contestDeadline": "September 10, 2024",
+      "participationCount": 0
+    },
+    {
+      "contestName": "Gaming Review Showdown",
+      "image": "https://via.placeholder.com/150",
+      "contestDescription": "Review the latest game releases and share your in-depth analysis. The best review will be published on our website, and the winner will receive an exclusive prize!",
+      "contestPrice": "Free Entry",
+      "prize": "Next-Gen Gaming Console",
+      "taskSubmissionTextInstruction": "Submit your game review in Word or PDF format, with a minimum of 1000 words. Include gameplay screenshots and personal insights.",
+      "contestTypeTags": "Gaming Review",
+      "contestDeadline": "October 5, 2024",
+      "participationCount": 0
+    },
+    {
+      "contestName": "Book Review Bonanza",
+      "image": "https://via.placeholder.com/150",
+      "contestDescription": "Write a compelling review of your favorite book and stand a chance to win exciting prizes. The best review will be featured on our blog!",
+      "contestPrice": "Free Entry",
+      "prize": "$200 Bookstore Gift Card",
+      "taskSubmissionTextInstruction": "Submit your book review in Word or PDF format, with a minimum of 800 words. Include a summary and your personal reflections.",
+      "contestTypeTags": "Book Review",
+      "contestDeadline": "November 15, 2024",
+      "participationCount": 0
+    },
+    {
+      "contestName": "Innovative Business Idea Competition",
+      "image": "https://via.placeholder.com/150",
+      "contestDescription": "Pitch your innovative business idea and win funding to bring it to life. The best idea will receive a substantial cash prize and mentorship opportunities!",
+      "contestPrice": "$50 Entry Fee",
+      "prize": "$5000 Cash Prize and Mentorship",
+      "taskSubmissionTextInstruction": "Submit a detailed business plan in PDF format, including market research, financial projections, and implementation strategy.",
+      "contestTypeTags": "Business Idea Contests",
+      "contestDeadline": "December 20, 2024",
+      "participationCount": 0
+    },
+    {
+      "contestName": "Ultimate Movie Review Contest",
+      "image": "https://via.placeholder.com/150",
+      "contestDescription": "Review the latest blockbuster and share your thoughts. The best review will be featured on our platform, and the winner will receive a special prize!",
+      "contestPrice": "Free Entry",
+      "prize": "$150 Movie Theater Gift Card",
+      "taskSubmissionTextInstruction": "Submit your movie review in Word or PDF format, with a minimum of 900 words. Include your analysis of the plot, characters, and cinematography.",
+      "contestTypeTags": "Movie Review",
+      "contestDeadline": "January 25, 2025",
+      "participationCount": 0
+    }
+  ]
+  
