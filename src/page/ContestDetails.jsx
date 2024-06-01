@@ -3,7 +3,7 @@ import HelmetTitle from "../components/HelmetTitle";
 import Container from "../components/shared/Container";
 const ContestDetails = () => {
     const contest = useLoaderData()
-    const { img, contestName, participation, prize, description, deadline, entryFee, _id, taskSubmited } = contest;
+    const { img, contestName, participation, prize, description, deadline, entryFee, taskSubmited } = contest;
     return (
         <div className="min-h-[calc(100vh-380px)]">
             <HelmetTitle title="Details Page" />

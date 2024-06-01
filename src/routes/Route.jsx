@@ -6,6 +6,7 @@ import SignUp from "../page/Authentication/SignUp";
 import AllContest from "../page/AllContest";
 import ContestDetails from "../page/ContestDetails";
 import PrivateRoute from "./PrivateRoute";
+import Dashboard from "../layouts/Dashboard";
 
 const router = createBrowserRouter([
     {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
                 element: <PrivateRoute><ContestDetails /></PrivateRoute>
             }
         ],
+    },
+    {
+        path: '/dashboard',
+        element: <Dashboard />,
     },
     {
         path: 'login',

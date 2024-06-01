@@ -83,8 +83,9 @@ const Navbar = () => {
                                                 <img alt="User pic" src={user?.photoURL} />
                                             </div>
                                         </div>
-                                        <div tabIndex={0} className="mt-3 z-20 bg-base-200 space-y-2 shadow menu menu-sm dropdown-content rounded-box w-52 font-bold *:p-2">
-                                            <p className="w-full hover:bg-gray-200">Username: {user?.displayName}</p>
+                                        <div tabIndex={0} className="mt-3 z-20 bg-base-200 space-y-2 shadow menu menu-sm dropdown-content rounded-box w-52 font-bold *:p-2 text-center">
+                                            <p className="w-full hover:bg-gray-200">{user?.displayName}</p>
+                                            <Link to='/dashboard' className="w-full hover:bg-gray-200 cursor-pointer">Dashboard</Link>
                                             <button className="hover:bg-gray-200" onClick={handleLogOut}>Logout</button>
                                         </div>
                                     </div>
