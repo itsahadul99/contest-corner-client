@@ -7,11 +7,14 @@ import AllContest from "../page/AllContest";
 import ContestDetails from "../page/ContestDetails";
 import PrivateRoute from "./PrivateRoute";
 import Dashboard from "../layouts/Dashboard";
+import Welcome from "../page/Dashboard/Welcome";
+import ErrorPage from "../page/ErrorPage";
 
 const router = createBrowserRouter([
     {
         path: '/',
         element: <Main />,
+        errorElement: <ErrorPage />,
         children: [
             {
                 path: '/',
@@ -30,7 +33,14 @@ const router = createBrowserRouter([
     },
     {
         path: '/dashboard',
+        errorElement: <ErrorPage />,
         element: <Dashboard />,
+        children: [
+            {
+                index: true,
+                element: <Welcome />
+            }
+        ]
     },
     {
         path: 'login',
