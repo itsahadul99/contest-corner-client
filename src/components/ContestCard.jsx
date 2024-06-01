@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 
 const ContestCard = ({contest}) => {
-    const {img, contestName, entryFee,participation, prize, description, deadline} = contest;
+    const {img, contestName,participation, description, deadline, _id} = contest;
     return (
         <div className="card lg:card-side bg-base-100 shadow-md border m-5 p-5">
             <div className="flex items-center">
@@ -14,7 +14,7 @@ const ContestCard = ({contest}) => {
                 <p className="text-sm md:text-lg font-semibold">Participation: {participation}</p>
                 <p className="text-sm md:text-lg font-medium">{deadline}</p>
                 <div className="card-actions justify-end">
-                    <Link to={'/contestDetails'} className=" text-sm md:text-lg btn bg-primary hover:bg-secondary">View Details</Link>
+                    <Link to={`/contestDetails/${_id}`} className=" text-sm md:text-lg btn bg-primary hover:bg-secondary">View Details</Link>
                 </div>
             </div>
         </div>

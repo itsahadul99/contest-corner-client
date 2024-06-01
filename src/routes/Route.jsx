@@ -20,7 +20,8 @@ const router = createBrowserRouter([
                 element: <AllContest />
             },
             {
-                path: '/contestDetails',
+                path: '/contestDetails/:id',
+                loader: ({ params }) => fetch(`${import.meta.env.VITE_API_URL}/contestDetails/${params.id}`),
                 element: <ContestDetails />
             }
         ],

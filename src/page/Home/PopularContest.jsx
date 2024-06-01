@@ -5,7 +5,7 @@ import SectionTitle from "../../components/shared/SectionTitle";
 import useContests from "../../hooks/useContests";
 
 const PopularContest = () => {
-    const [contests, isLoading] = useContests()
+    const [contests] = useContests()
     return (
         <Container>
             <SectionTitle title={"Top popular Contest"} subTitle={"Top contest"} />
