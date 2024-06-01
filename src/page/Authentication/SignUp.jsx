@@ -56,7 +56,7 @@ const SignUp = () => {
             <div className='flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg lg:max-w-4xl '>
                 <div className='w-full px-6 md:px-8 lg:w-1/2'>
                     <div className='flex justify-center mx-auto'>
-                        <h1 className="cursor-pointer text-lg md:text-2xl lg:text-3xl font-bold">Contest<span className="text-primary">Corner</span></h1>
+                        <Link to='/' className="cursor-pointer text-lg md:text-2xl lg:text-3xl font-bold">Contest<span className="text-primary">Corner</span></Link>
                     </div>
 
                     <p className='mt-3 text-xl text-center text-gray-600 '>

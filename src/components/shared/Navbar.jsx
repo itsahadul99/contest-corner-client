@@ -53,7 +53,7 @@ const Navbar = () => {
         return <Spinner />
     }
     return (
-        <div className="bg-base-50 shadow-md my-1">
+        <div className="bg-base-50 shadow-md my-1 ">
             <div className="navbar py-3 lg:pt-6 max-w-7xl mx-auto">
                 <div className="navbar-start">
                     <div className="dropdown">

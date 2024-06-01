@@ -5,6 +5,7 @@ import Login from "../page/Authentication/Login";
 import SignUp from "../page/Authentication/SignUp";
 import AllContest from "../page/AllContest";
 import ContestDetails from "../page/ContestDetails";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
     {
@@ -22,7 +23,7 @@ const router = createBrowserRouter([
             {
                 path: '/contestDetails/:id',
                 loader: ({ params }) => fetch(`${import.meta.env.VITE_API_URL}/contestDetails/${params.id}`),
-                element: <ContestDetails />
+                element: <PrivateRoute><ContestDetails /></PrivateRoute>
             }
         ],
     },
