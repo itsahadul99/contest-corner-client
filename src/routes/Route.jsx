@@ -9,6 +9,7 @@ import PrivateRoute from "./PrivateRoute";
 import Dashboard from "../layouts/Dashboard";
 import Welcome from "../page/Dashboard/Welcome";
 import ErrorPage from "../page/ErrorPage";
+import AddContest from "../page/Dashboard/AddContest";
 
 const router = createBrowserRouter([
     {
@@ -39,6 +40,11 @@ const router = createBrowserRouter([
             {
                 index: true,
                 element: <Welcome />
+            },
+            // Creator path
+            {
+                path: 'addContest',
+                element: <AddContest />
             }
         ]
     },

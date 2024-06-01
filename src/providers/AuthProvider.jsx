@@ -78,8 +78,8 @@ const AuthProvider = ({ children }) => {
       setUser(currentUser)
       setLoading(false)
       if (currentUser) {
-        getToken(currentUser.email)
         saveUser(currentUser)
+        getToken(currentUser?.email)
       }
     })
     return () => {

@@ -7,6 +7,7 @@ import AuthProvider from './providers/AuthProvider.jsx'
 import { Toaster } from 'react-hot-toast'
 import { HelmetProvider } from 'react-helmet-async'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import "react-datepicker/dist/react-datepicker.css";
 const queryClient = new QueryClient()
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
