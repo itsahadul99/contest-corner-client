@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import toast from "react-hot-toast";
+import Spinner from "./Spinner";
 
 const Navbar = () => {
     const { user, logOut, loading } = useContext(AuthContext)
@@ -15,12 +16,12 @@ const Navbar = () => {
                 Home</NavLink>
         </li>
         <li>
-            <NavLink to='/allArtCraft' className={({ isActive }) =>
+            <NavLink to='/allContest' className={({ isActive }) =>
                 isActive
                     ? "text-primary pb-1 border-b-0 lg:border-b-2 border-secondary font-bold"
                     : "font-bold hover:text-secondary"
             }>
-                All Categories</NavLink>
+                All Contest</NavLink>
         </li>
 
     </>
@@ -49,9 +50,7 @@ const Navbar = () => {
             })
     }
     if (loading) {
-        return <div className="flex justify-center items-center min-h-screen">
-            <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-red-400 dark:border-red-600"></div>
-        </div>
+        return <Spinner />
     }
     return (
         <div className="bg-base-50 shadow-md my-1">
