@@ -5,7 +5,7 @@ const Dashboard = () => {
     return (
         <div className='relative min-h-screen md:flex'>
             <Sidebar />
-            <div className='flex-1 lg:ml-64'>
+            <div className='flex-1 lg:ml-64 bg-white'>
                 <div className='p-5'>
                     <Outlet />
                 </div>

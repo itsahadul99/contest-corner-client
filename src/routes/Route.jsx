@@ -10,6 +10,7 @@ import Dashboard from "../layouts/Dashboard";
 import Welcome from "../page/Dashboard/Welcome";
 import ErrorPage from "../page/ErrorPage";
 import AddContest from "../page/Dashboard/AddContest";
+import ManageUsers from "../page/Dashboard/Admin/ManageUsers";
 
 const router = createBrowserRouter([
     {
@@ -45,6 +46,11 @@ const router = createBrowserRouter([
             {
                 path: 'addContest',
                 element: <AddContest />
+            },
+            // Admin path
+            {
+                path: 'manageUser',
+                element: <ManageUsers />
             }
         ]
     },
