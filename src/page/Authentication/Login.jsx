@@ -6,13 +6,26 @@ import useAuth from '../../hooks/useAuth'
 import toast from 'react-hot-toast'
 
 const Login = () => {
-    const { signInWithGoogle, loading } = useAuth()
+    const { signInWithGoogle, loading, signIn } = useAuth()
     const navigate = useNavigate()
+
+    const handleSubmit = async e => {
+        e.preventDefault()
+        const form = e.target;
+        const email = form.email.value;
+        const password = form.password.value;
+        signIn(email, password)
+            .then(() => {
+                toast.success("Successfully log in !!")
+                navigate(location?.state ? location?.state : '/')
+            })
+    }
+
     const handleGoggleSignIn = () => {
         signInWithGoogle()
             .then(() => {
-                navigate('/')
-                toast.success("Successfully log in")
+                toast.success("Successfully log in !!")
+                navigate(location?.state ? location?.state : '/')
             })
             .catch(err => toast.error(err?.message))
     }
@@ -26,6 +39,7 @@ const Login = () => {
                     </p>
                 </div>
                 <form
+                    onSubmit={handleSubmit}
                     noValidate=''
                     action=''
                     className='space-y-6 ng-untouched ng-pristine ng-valid'

@@ -6,7 +6,6 @@ const PopularContest = () => {
     return (
         <Container>
             <SectionTitle title={"Top popular Contest"} subTitle={"Top contest"} />
-
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-10 items-center">
                 <div className="card lg:card-side bg-base-100 shadow-md border m-5 p-5">
                     <div className="flex items-center">
@@ -22,9 +21,6 @@ const PopularContest = () => {
                     </div>
                 </div>
             </div>
-
-
-
         </Container>
     );
 };

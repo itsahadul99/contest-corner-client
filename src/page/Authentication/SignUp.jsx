@@ -1,5 +1,5 @@
-/* eslint-disable no-unused-vars */
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom"
+
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import toast from "react-hot-toast";
 import { useState } from "react";
 import { imageUpload } from "../../utils";
@@ -20,22 +20,27 @@ const SignUp = () => {
         const email = form.email.value;
         const password = form.password.value;
         const image = form.image.files[0];
-        const img_url = await imageUpload(image)
-        createUser(email, password)
-            .then(() => {
-                setIsLoading(false)
-                updateUserProfile(name, img_url)
-                toast.success("Successfully register !!")
-                navigate(location?.state ? location?.state : '/')
-            })
-            .catch(err => {
-                toast.error(err?.message);
-            })
+        try {
+            const img_url = await imageUpload(image)
+            createUser(email, password)
+                .then(() => {
+                    setIsLoading(false)
+                    updateUserProfile(name, img_url)
+                        .then(() => {
+                            toast.success("Successfully register !!")
+                            navigate(location?.state ? location?.state : '/')
+                        })
+                })
+        } catch (error) {
+            toast.error(error?.message);
+
+        }
+
     }
     const handleGoogleSignIn = () => {
         signInWithGoogle()
             .then(() => {
-                toast.success('Successfully register')
+                toast.success("Successfully register !!")
                 navigate(location?.state ? location?.state : '/')
             })
             .catch(err => {
@@ -173,11 +178,11 @@ const SignUp = () => {
                         </div>
                         <div className='mt-6'>
                             <button
-                            disabled={isLoading}
+                                disabled={isLoading}
                                 type='submit'
                                 className='disabled:cursor-not-allowed flex justify-center items-center gap-2.5 w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50'
                             >
-                                {isLoading ? <FaSpinner className="animate-spin" />: ' Registration'}
+                                {isLoading ? <FaSpinner className="animate-spin" /> : ' Registration'}
                             </button>
                         </div>
                     </form>
@@ -197,7 +202,7 @@ const SignUp = () => {
                 </div>
                 <div
                     className='hidden lg:flex lg:justify-center lg:items-center lg:w-1/2'
-                    >
+                >
                     <img src='https://cdni.iconscout.com/illustration/premium/thumb/points-out-the-registration-form-in-the-mobile-application-3411138-2844271.png' alt="" />
                 </div>
             </div>
