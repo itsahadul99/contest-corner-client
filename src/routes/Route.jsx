@@ -12,7 +12,6 @@ import ErrorPage from "../page/ErrorPage";
 import AddContest from "../page/Dashboard/AddContest";
 import ManageUsers from "../page/Dashboard/Admin/ManageUsers";
 import ManageContests from "../page/Dashboard/Admin/ManageContests";
-import ContestReview from "../page/Dashboard/Admin/ContestReview";
 import MyCreatorContest from "../page/Dashboard/Creator/MyCreatorContest";
 
 const router = createBrowserRouter([
@@ -27,7 +26,8 @@ const router = createBrowserRouter([
             },
             {
                 path: '/allContest',
-                element: <AllContest />
+                element: <AllContest />,
+                loader: () =>  fetch(`${import.meta.env.VITE_API_URL}/contestCount`)
             },
             {
                 path: '/contestDetails/:id',
@@ -39,7 +39,7 @@ const router = createBrowserRouter([
     {
         path: '/dashboard',
         errorElement: <ErrorPage />,
-        element: <Dashboard />,
+        element: <PrivateRoute><Dashboard /></PrivateRoute>,
         children: [
             {
                 index: true,
