@@ -65,6 +65,7 @@ const AuthProvider = ({ children }) => {
     return data
   }
   const saveUser = async user => {
+    console.log("inside auth provider",user?.displayName);
     const userInfo = {
       name: user?.displayName,
       email: user?.email,

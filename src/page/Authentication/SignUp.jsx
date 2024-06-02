@@ -136,7 +136,7 @@ const SignUp = () => {
                                     </label>
                                 </div>
                             </div>
-                            <div className="">
+                            <div>
                                 <img className="w-24 h-20" src={imagePreview} alt="" />
                             </div>
                         </div>
