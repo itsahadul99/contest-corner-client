@@ -64,7 +64,8 @@ const Navbar = () => {
                             {links}
                         </ul>
                     </div>
-                    {/* <img className="w-[150px] h-[45px] border rounded-lg mr-1 lg:mr-3" src="https://i.ibb.co/c1717sJ/lOGO.png" alt="" /> */}
+                    {/* <Link> */}
+                    {/* <img className=" w-[100px] h-[30px] bg-cover rounded-lg mr-1 lg:mr-3" src='/logo.png' alt="" /></Link> */}
                     <Link to='/' className="text-sm md:text-2xl lg:text-3xl text-primary font-black">Contest <span className=" text-secondary">Corner</span></Link>
                 </div>
                 <div className="navbar-end">

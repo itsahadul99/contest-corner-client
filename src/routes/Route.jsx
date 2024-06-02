@@ -9,10 +9,12 @@ import PrivateRoute from "./PrivateRoute";
 import Dashboard from "../layouts/Dashboard";
 import Welcome from "../page/Dashboard/Welcome";
 import ErrorPage from "../page/ErrorPage";
-import AddContest from "../page/Dashboard/AddContest";
 import ManageUsers from "../page/Dashboard/Admin/ManageUsers";
 import ManageContests from "../page/Dashboard/Admin/ManageContests";
 import MyCreatorContest from "../page/Dashboard/Creator/MyCreatorContest";
+import AddContest from "../page/Dashboard/Creator/AddContest";
+import MySubmittedPage from "../page/Dashboard/Creator/MySubmittedPage";
+import Profile from "../page/Dashboard/NormalUser/Profile";
 
 const router = createBrowserRouter([
     {
@@ -54,6 +56,10 @@ const router = createBrowserRouter([
                 path: 'myCreated',
                 element: <MyCreatorContest />
             },
+            {
+                path: 'contestSubmitted',
+                element: <MySubmittedPage />
+            },
             // Admin path
             {
                 path: 'manageUser',
@@ -63,6 +69,11 @@ const router = createBrowserRouter([
                 path: 'manageContest',
                 element: <ManageContests />
             },
+            // Normal user
+            {
+                path: 'profile',
+                element: <Profile />
+            }
 
         ]
     },

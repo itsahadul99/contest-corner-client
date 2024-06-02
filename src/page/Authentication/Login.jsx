@@ -4,12 +4,14 @@ import { TbFidgetSpinner } from 'react-icons/tb'
 import { Link, useNavigate } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth'
 import toast from 'react-hot-toast'
+import { useState } from 'react'
 
 const Login = () => {
-    const { signInWithGoogle, loading, signIn } = useAuth()
+    const { signInWithGoogle, signIn } = useAuth()
     const navigate = useNavigate()
-
+    const [loading, setLoading] = useState(false)
     const handleSubmit = async e => {
+        setLoading(true)
         e.preventDefault()
         const form = e.target;
         const email = form.email.value;
@@ -18,6 +20,13 @@ const Login = () => {
             .then(() => {
                 toast.success("Successfully log in !!")
                 navigate(location?.state ? location?.state : '/')
+                setLoading(false)
+            })
+            .catch(err => {
+                toast.error(err?.message)
+                form.reset()
+                setLoading(false)
+                return 
             })
     }
 
@@ -83,7 +92,7 @@ const Login = () => {
                             type='submit'
                             className='bg-primary w-full rounded-md py-3 text-white text-center'
                         >
-                            {loading ? <TbFidgetSpinner className='animate-spin' /> : 'Continue'}
+                            {loading ? <TbFidgetSpinner className='animate-spin flex items-center justify-center' /> : 'Continue'}
                         </button>
                     </div>
                 </form>
