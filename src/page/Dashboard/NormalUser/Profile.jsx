@@ -5,14 +5,14 @@ import { FaSpinner } from 'react-icons/fa'
 import toast from 'react-hot-toast'
 import { imageUpload } from '../../../utils'
 import { useState } from 'react'
-import useAxiosCommon from '../../../hooks/useAxiosCommon'
 import { useQuery } from '@tanstack/react-query'
+import useAxiosSecure from '../../../hooks/useAxiosSecure'
 
 const Profile = () => {
     const { user, updateUserProfile, isLoading } = useAuth()
     const [imagePreview, setImagePreview] = useState()
     const [imageText, setImageText] = useState('Upload Image')
-    const axiosCommon = useAxiosCommon()
+    const axiosSecure = useAxiosSecure()
     const handleUpdate = async e => {
         e.preventDefault()
         const form = e.target;
@@ -28,7 +28,7 @@ const Profile = () => {
                         name: name,
                         userImg: img_url,
                     }
-                    const { data } = await axiosCommon.put(`/user/update/${user?.email}`, updateInfo)
+                    const { data } = await axiosSecure.put(`/user/update/${user?.email}`, updateInfo)
                     if (data.modifiedCount > 0) {
                         form.reset()
                         toast.success("Successfully update !!")
@@ -46,7 +46,7 @@ const Profile = () => {
     const { data: userDb = {} } = useQuery({
         queryKey: ['user', user?.email],
         queryFn: async () => {
-            const { data } = await axiosCommon.get(`/user/${user?.email}`)
+            const { data } = await axiosSecure.get(`/user/${user?.email}`)
             return data;
         }
     })

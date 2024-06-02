@@ -12,6 +12,7 @@ import {
 } from 'firebase/auth'
 import { app } from '../firebase/firebase.config'
 import axios from 'axios'
+import useAxiosCommon from '../hooks/useAxiosCommon'
 export const AuthContext = createContext(null)
 const auth = getAuth(app)
 const googleProvider = new GoogleAuthProvider()
@@ -19,6 +20,7 @@ const googleProvider = new GoogleAuthProvider()
 // eslint-disable-next-line react/prop-types
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
+  const axiosCommon = useAxiosCommon()
   const [loading, setLoading] = useState(true)
 
   const createUser = (email, password) => {
@@ -43,9 +45,6 @@ const AuthProvider = ({ children }) => {
 
   const logOut = async () => {
     setLoading(true)
-    await axios.get(`${import.meta.env.VITE_API_URL}/logout`, {
-      withCredentials: true,
-    })
     return signOut(auth)
   }
 
@@ -54,15 +53,6 @@ const AuthProvider = ({ children }) => {
       displayName: name,
       photoURL: photo,
     })
-  }
-  // Get token from server
-  const getToken = async email => {
-    const { data } = await axios.post(
-      `${import.meta.env.VITE_API_URL}/jwt`,
-      { email },
-      { withCredentials: true }
-    )
-    return data
   }
   const saveUser = async user => {
     console.log("inside auth provider",user?.displayName);
@@ -78,16 +68,27 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
       setUser(currentUser)
-      setLoading(false)
       if (currentUser) {
-        getToken(currentUser?.email)
         saveUser(currentUser)
+        // get the token 
+        const email = { email: currentUser?.email }
+        axiosCommon.post('/jwt', email)
+          .then(res => {
+            if (res.data.token) {
+              localStorage.setItem('access-token', res.data.token)
+              setLoading(false)
+            }
+          })
+      }
+      else {
+        localStorage.removeItem('access-token')
+        setLoading(false)
       }
     })
     return () => {
       return unsubscribe()
     }
-  }, [])
+  }, [axiosCommon])
 
   const authInfo = {
     user,

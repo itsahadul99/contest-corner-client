@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
 import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react'
 import { useMutation } from '@tanstack/react-query';
-import useAxiosCommon from '../hooks/useAxiosCommon';
 import toast from 'react-hot-toast';
+import useAxiosSecure from '../hooks/useAxiosSecure';
 const DropdownMenu = ({ user, handleDelete, refetch }) => {
-    const axiosCommon = useAxiosCommon()
+    const axiosSecure = useAxiosSecure()
     const { mutateAsync } = useMutation({
         mutationFn: async (updateInfo) => {
-            const { data } = await axiosCommon.patch(`/user/update/${user?.email}`, updateInfo)
+            const { data } = await axiosSecure.patch(`/user/update/${user?.email}`, updateInfo)
             return data
         },
         onSuccess: () => {

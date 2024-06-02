@@ -2,17 +2,17 @@ import { MdDeleteForever } from "react-icons/md";
 import useContests from "../../../hooks/useContests";
 import { IoMdCheckmark } from "react-icons/io";
 import { CiEdit } from "react-icons/ci";
-import useAxiosCommon from "../../../hooks/useAxiosCommon";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 const ManageContests = () => {
     const [contests, , refetch] = useContests()
-    const axiosCommon = useAxiosCommon()
+    const axiosSecure = useAxiosSecure()
     const handleConfirm = async id => {
         const updateContest = {
             status: 'Approved'
         }
-        const { data } = await axiosCommon.patch(`/contests/update/${id}`, updateContest)
+        const { data } = await axiosSecure.patch(`/contests/update/${id}`, updateContest)
         if (data.modifiedCount > 0) {
             refetch()
             toast.success("Approved this contest successfully")
@@ -30,7 +30,7 @@ const ManageContests = () => {
             confirmButtonText: "Yes, delete it!"
         }).then(async (result) => {
             if (result.isConfirmed) {
-                const { data } = await axiosCommon.delete(`/contests/delete/${id}`)
+                const { data } = await axiosSecure.delete(`/contests/delete/${id}`)
                 if (data.deletedCount) {
                     refetch()
                     Swal.fire({
@@ -47,7 +47,7 @@ const ManageContests = () => {
         console.log(id);
         // const updateContest = {
         // }
-        // const { data } = await axiosCommon.patch(`/contests/update/${id}`, updateContest)
+        // const { data } = await axiosSecure.patch(`/contests/update/${id}`, updateContest)
         // if (data.modifiedCount > 0) {
         //     refetch()
         //     toast.success("Approved this contest successfully")

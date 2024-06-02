@@ -3,17 +3,17 @@ import { TbFidgetSpinner } from "react-icons/tb";
 import useAuth from "../../../hooks/useAuth";
 import DatePicker from "react-datepicker";
 import { imageUpload } from "../../../utils";
-import useAxiosCommon from "../../../hooks/useAxiosCommon";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const AddContest = () => {
     const [loading, setLoading] = useState(false)
     const [imagePreview, setImagePreview] = useState()
     const [imageText, setImageText] = useState('Upload Image')
     const [startDate, setStartDate] = useState(new Date());
-    const axiosCommon = useAxiosCommon()
+    const axiosSecure = useAxiosSecure()
     const { user } = useAuth()
     const navigate = useNavigate()
     const handleSubmit = async e => {
@@ -43,7 +43,7 @@ const AddContest = () => {
             status: 'Request',
 
         }
-        const { data } = await axiosCommon.post('/addContest', contestData)
+        const { data } = await axiosSecure.post('/addContest', contestData)
         if (data.insertedId) {
             setLoading(false)
             navigate('/dashboard/myCreated')

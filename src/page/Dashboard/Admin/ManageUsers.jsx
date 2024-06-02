@@ -1,19 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
-import useAxiosCommon from "../../../hooks/useAxiosCommon";
 import DropdownMenu from "../../../components/DropdownMenu";
 import toast from "react-hot-toast";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 const ManageUsers = () => {
-    const axiosCommon = useAxiosCommon()
+    const axiosSecure = useAxiosSecure()
     const {data: users= [], refetch} = useQuery({
         queryKey: ['users'],
         queryFn: async() => {
-            const {data} = await axiosCommon.get('/users')
+            const {data} = await axiosSecure.get('/users')
             return data
         }
     })
     const handleDelete = async id => {
-        const {data} = await axiosCommon.delete(`/user/delete/${id}`)
-        if(data.deleteCount > 0){
+        const {data} = await axiosSecure.delete(`/user/delete/${id}`)
+        if(data.deletedCount > 0){
             refetch()
             toast.success("Successfully delete the user")
         }

@@ -1,18 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
-import useAxiosCommon from "../../../hooks/useAxiosCommon";
 import useAuth from "../../../hooks/useAuth";
 import { Link } from "react-router-dom";
 import { MdDeleteForever } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const MyCreatorContest = () => {
-    const axiosCommon = useAxiosCommon()
+    const axiosSecure = useAxiosSecure()
     const { user } = useAuth()
     const { data: myContests = [], refetch } = useQuery({
         queryKey: ['myContest', user?.email],
         queryFn: async () => {
-            const { data } = await axiosCommon.get(`/myContest/${user?.email}`)
+            const { data } = await axiosSecure.get(`/myContest/${user?.email}`)
             return data;
         }
     })
@@ -27,7 +27,7 @@ const MyCreatorContest = () => {
             confirmButtonText: "Yes, delete it!"
         }).then(async (result) => {
             if (result.isConfirmed) {
-                const { data } = await axiosCommon.delete(`/contests/delete/${id}`)
+                const { data } = await axiosSecure.delete(`/contests/delete/${id}`)
                 if (data.deletedCount) {
                     refetch()
                     Swal.fire({
