@@ -12,6 +12,8 @@ import ErrorPage from "../page/ErrorPage";
 import AddContest from "../page/Dashboard/AddContest";
 import ManageUsers from "../page/Dashboard/Admin/ManageUsers";
 import ManageContests from "../page/Dashboard/Admin/ManageContests";
+import ContestReview from "../page/Dashboard/Admin/ContestReview";
+import MyCreatorContest from "../page/Dashboard/Creator/MyCreatorContest";
 
 const router = createBrowserRouter([
     {
@@ -48,6 +50,10 @@ const router = createBrowserRouter([
                 path: 'addContest',
                 element: <AddContest />
             },
+            {
+                path: 'myCreated',
+                element: <MyCreatorContest />
+            },
             // Admin path
             {
                 path: 'manageUser',
@@ -56,7 +62,8 @@ const router = createBrowserRouter([
             {
                 path: 'manageContest',
                 element: <ManageContests />
-            }
+            },
+
         ]
     },
     {

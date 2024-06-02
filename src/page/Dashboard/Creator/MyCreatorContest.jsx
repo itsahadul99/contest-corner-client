@@ -1,25 +1,22 @@
-import { MdDeleteForever } from "react-icons/md";
-import useContests from "../../../hooks/useContests";
-import { IoMdCheckmark } from "react-icons/io";
-import { CiEdit } from "react-icons/ci";
+import { useQuery } from "@tanstack/react-query";
 import useAxiosCommon from "../../../hooks/useAxiosCommon";
-import toast from "react-hot-toast";
+import useAuth from "../../../hooks/useAuth";
+import { Link } from "react-router-dom";
+import { MdDeleteForever } from "react-icons/md";
+import { CiEdit } from "react-icons/ci";
 import Swal from "sweetalert2";
-const ManageContests = () => {
-    const [contests, , refetch] = useContests()
-    const axiosCommon = useAxiosCommon()
-    const handleConfirm = async id => {
-        const updateContest = {
-            status: 'Approved'
-        }
-        const { data } = await axiosCommon.patch(`/contests/update/${id}`, updateContest)
-        if (data.modifiedCount > 0) {
-            refetch()
-            toast.success("Approved this contest successfully")
-        }
 
-    }
-    const handleDelete = id => {
+const MyCreatorContest = () => {
+    const axiosCommon = useAxiosCommon()
+    const { user } = useAuth()
+    const { data: myContests = [], refetch } = useQuery({
+        queryKey: ['myContest', user?.email],
+        queryFn: async () => {
+            const { data } = await axiosCommon.get(`/myContest/${user?.email}`)
+            return data;
+        }
+    })
+    const handleDelete = async id => {
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -43,64 +40,49 @@ const ManageContests = () => {
             }
         });
     }
-    const handleComment = async (id) => {
-        console.log(id);
-        // const updateContest = {
-        // }
-        // const { data } = await axiosCommon.patch(`/contests/update/${id}`, updateContest)
-        // if (data.modifiedCount > 0) {
-        //     refetch()
-        //     toast.success("Approved this contest successfully")
-        // }
-    }
     return (
         <div>
             <div className="overflow-x-auto overflow-y-auto p-8 shadow-sm mt-12 bg-gray-100 rounded-md border">
                 <div className="text-[#151515] font-bold my-5 text-2xl uppercase ">
-                    <h1>Total Contest:{contests.length}</h1>
+                    <h1>My Total Contest:{myContests.length}</h1>
                 </div>
                 <table className="table">
                     <thead>
                         <tr className="font-inter uppercase bg-primary/70 text-white">
                             <th>Title</th>
-                            <th>Creator Email</th>
                             <th>Status</th>
-                            <th className="text-center">ACTION</th>
+                            <th>ACTION</th>
+                            <th>Submission</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            contests.map((user) => <tr key={user?._id}>
+                            myContests.map((contest) => <tr key={contest?._id}>
                                 <td>
-                                    {user?.contestName ? user?.contestName : "Not found"}
+                                    {contest?.contestName ? contest?.contestName : "Not found"}
+                                </td>
+                                <td className={contest?.status === 'Approved' ? 'text-primary font-medium' : 'text-secondary font-medium'}>
+                                    {contest?.status}
                                 </td>
                                 <td>
-                                    {user?.creatorEmail}
-                                </td>
-                                <td>
-                                    {user?.status}
-                                </td>
-                                <td>
-                                    <div className="flex items-center justify-center gap-2">
+                                    <div className="flex items-center gap-2">
                                         <button
-                                            disabled={user?.status === 'Approved'}
-                                            onClick={() => handleConfirm(user._id)}
-                                            title="Approved"
-                                            className="btn disabled:cursor-not-allowed bg-primary border-none hover:bg-secondary btn-xs"><IoMdCheckmark size={20} />
-                                        </button>
-
-                                        <button
-                                            onClick={() => handleDelete(user._id)}
+                                            disabled={contest?.status === 'Approved'}
+                                            onClick={() => handleDelete(contest._id)}
                                             title="Delete"
                                             className="btn bg-red-700 border-none hover:bg-rose-950 btn-xs">
                                             <MdDeleteForever size={20} />
                                         </button>
                                         <button
-                                            onClick={() => handleComment(user?._id)}
+                                            disabled={contest?.status === 'Approved'}
+                                            // onClick={() => handleComment(user?._id)}
                                             title="Comment"
                                             className="btn btn-xs bg-green-400 hover:bg-green-800 border-none"><CiEdit size={20} />
                                         </button>
                                     </div>
+                                </td>
+                                <td>
+                                    <Link to='/dashboard/contestSubmitted'>Submission</Link>
                                 </td>
                             </tr>)
                         }
@@ -112,4 +94,4 @@ const ManageContests = () => {
     );
 };
 
-export default ManageContests;
+export default MyCreatorContest;

@@ -5,6 +5,8 @@ import DatePicker from "react-datepicker";
 import { imageUpload } from "../../utils";
 import useAxiosCommon from "../../hooks/useAxiosCommon";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const AddContest = () => {
     const [loading, setLoading] = useState(false)
@@ -13,6 +15,7 @@ const AddContest = () => {
     const [startDate, setStartDate] = useState(new Date());
     const axiosCommon = useAxiosCommon()
     const { user } = useAuth()
+    const navigate = useNavigate()
     const handleSubmit = async e => {
         setLoading(true)
         e.preventDefault()
@@ -41,15 +44,17 @@ const AddContest = () => {
 
         }
         const { data } = await axiosCommon.post('/addContest', contestData)
-        console.log(data);
-        if(data.insertedId){
+        if (data.insertedId) {
             setLoading(false)
-            form.reset()
+            navigate('/dashboard/myCreated')
             Swal.fire({
                 title: "Success!",
                 text: "You added the contest wait for admin approval",
                 icon: "success"
-              });
+            });
+        }
+        else{
+            toast.error('Something went wrong! Please, try again.')
         }
     }
     const handleImageChange = image => {
@@ -137,6 +142,7 @@ const AddContest = () => {
                                     Contest Price
                                 </label>
                                 <input
+                                    min={0}
                                     className='bg-white w-full px-4 py-3 text-gray-800 border border-primary focus:outline-primary rounded-md '
                                     name='price'
                                     id='price'
@@ -151,6 +157,7 @@ const AddContest = () => {
                                     Contest Entry Fee
                                 </label>
                                 <input
+                                    min={0}
                                     className='w-full bg-white px-4 py-3 text-gray-800 border border-primary focus:outline-primary rounded-md '
                                     name='entryFee'
                                     type='number'
