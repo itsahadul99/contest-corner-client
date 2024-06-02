@@ -19,7 +19,7 @@ const ContestDetails = () => {
                         <div className="text-sm md:text-lg font-medium">
                             <p><span className="font-bold">Prize: </span>{prize}</p>
                             <p><span className="font-bold">Participation: </span>{participation}</p>
-                            <p><span className="font-bold">Deadline: </span>{deadline}</p>
+                            <p><span className="font-bold">Deadline: </span>{new Date(deadline).toLocaleDateString()}</p>
                             <div className="flex justify-between items-center w-full">
                                 <p><span className="font-bold">Entry Fee: </span>{entryFee}</p>
                                 <button className=" text-sm md:text-lg btn bg-primary hover:bg-secondary">Registration</button>

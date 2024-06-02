@@ -21,6 +21,7 @@ const AddContest = () => {
         const tags = form.type.value;
         const prize = form.price.value;
         const entryFee = form.entryFee.value;
+        const taskSubmitted = form.taskSubmitted.value;
         const image = form.image.files[0];
         const description = form.description.value;
         const img_url = await imageUpload(image)
@@ -32,6 +33,7 @@ const AddContest = () => {
             img: img_url,
             description,
             deadline: startDate,
+            taskSubmited: taskSubmitted,
             creatorEmail: user?.email,
             creatorName: user?.displayName,
             participation: 0,
@@ -42,6 +44,7 @@ const AddContest = () => {
         console.log(data);
         if(data.insertedId){
             setLoading(false)
+            form.reset()
             Swal.fire({
                 title: "Success!",
                 text: "You added the contest wait for admin approval",

@@ -4,6 +4,7 @@ import { IoMdCheckmark } from "react-icons/io";
 import { CiEdit } from "react-icons/ci";
 import useAxiosCommon from "../../../hooks/useAxiosCommon";
 import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 const ManageContests = () => {
     const [contests, , refetch] = useContests()
     const axiosCommon = useAxiosCommon()
@@ -11,21 +12,45 @@ const ManageContests = () => {
         const updateContest = {
             status: 'Approved'
         }
-        const {data} = await axiosCommon.patch(`/contests/update/${id}`, updateContest)
-        console.log(data);
-        if(data.modifiedCount > 0){
+        const { data } = await axiosCommon.patch(`/contests/update/${id}`, updateContest)
+        if (data.modifiedCount > 0) {
             refetch()
             toast.success("Approved this contest successfully")
         }
 
     }
-    const handleDelete = async id => {
-        
+    const handleDelete = id => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const { data } = await axiosCommon.delete(`/contests/delete/${id}`)
+                if (data.deletedCount) {
+                    refetch()
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success"
+                    });
+                }
 
+            }
+        });
     }
     const handleComment = async id => {
-        console.log("coming soon");
-
+        // const updateContest = {
+        // }
+        // const { data } = await axiosCommon.patch(`/contests/update/${id}`, updateContest)
+        // if (data.modifiedCount > 0) {
+        //     refetch()
+        //     toast.success("Approved this contest successfully")
+        // }
     }
     return (
         <div>

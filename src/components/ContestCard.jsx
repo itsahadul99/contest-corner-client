@@ -12,7 +12,7 @@ const ContestCard = ({contest}) => {
                 <h2 className="text-lg md:text-xl font-bold">{contestName}</h2>
                 <p className="text-xs md:text-sm font-medium">{description.slice(0, 80)}.....</p>
                 <p className="text-sm md:text-lg font-semibold">Participation: {participation}</p>
-                <p className="text-sm md:text-lg font-medium">{deadline}</p>
+                <p className="text-sm md:text-lg font-medium">Deadline: {new Date(deadline).toLocaleDateString()}</p>
                 <div className="card-actions justify-end">
                     <Link to={`/contestDetails/${_id}`} className=" text-sm md:text-lg btn bg-primary hover:bg-secondary">View Details</Link>
                 </div>
