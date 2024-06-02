@@ -2,8 +2,31 @@ import { MdDeleteForever } from "react-icons/md";
 import useContests from "../../../hooks/useContests";
 import { IoMdCheckmark } from "react-icons/io";
 import { CiEdit } from "react-icons/ci";
+import useAxiosCommon from "../../../hooks/useAxiosCommon";
+import toast from "react-hot-toast";
 const ManageContests = () => {
-    const [contests] = useContests()
+    const [contests, , refetch] = useContests()
+    const axiosCommon = useAxiosCommon()
+    const handleConfirm = async id => {
+        const updateContest = {
+            status: 'Approved'
+        }
+        const {data} = await axiosCommon.patch(`/contests/update/${id}`, updateContest)
+        console.log(data);
+        if(data.modifiedCount > 0){
+            refetch()
+            toast.success("Approved this contest successfully")
+        }
+
+    }
+    const handleDelete = async id => {
+        
+
+    }
+    const handleComment = async id => {
+        console.log("coming soon");
+
+    }
     return (
         <div>
             <div className="overflow-x-auto overflow-y-auto p-8 shadow-sm mt-12 bg-gray-100 rounded-md border">
@@ -21,9 +44,9 @@ const ManageContests = () => {
                     </thead>
                     <tbody>
                         {
-                           contests.map((user) => <tr key={user?._id}>
+                            contests.map((user) => <tr key={user?._id}>
                                 <td>
-                                    {user?.contestName ? user?.contestName: "Not found"}
+                                    {user?.contestName ? user?.contestName : "Not found"}
                                 </td>
                                 <td>
                                     {user?.creatorEmail}
@@ -33,9 +56,25 @@ const ManageContests = () => {
                                 </td>
                                 <td>
                                     <div className="flex items-center justify-center gap-2">
-                                        <button title="Approved" className="btn bg-primary border-none hover:bg-secondary btn-xs"><IoMdCheckmark size={20} /></button>
-                                        <button title="Delete" className="btn bg-rose-900 border-none hover:bg-rose-950 btn-xs"><MdDeleteForever size={20} /></button>
-                                        <button title="Comment" className="btn btn-xs bg-green-400 hover:bg-green-800 border-none"><CiEdit size={20} /></button>
+                                        <button
+                                            disabled={user?.status === 'Approved'}
+                                            onClick={() => handleConfirm(user._id)}
+                                            title="Approved"
+                                            className="btn disabled:cursor-not-allowed bg-primary border-none hover:bg-secondary btn-xs"><IoMdCheckmark size={20} />
+                                        </button>
+
+                                        <button
+                                            onClick={() => handleDelete(user._id)}
+                                            title="Delete"
+                                            className="btn bg-rose-900 border-none hover:bg-rose-950 btn-xs">
+                                            <MdDeleteForever size={20} />
+                                        </button>
+
+                                        <button
+                                            onClick={() => handleComment(user._id)}
+                                            title="Comment"
+                                            className="btn btn-xs bg-green-400 hover:bg-green-800 border-none"><CiEdit size={20} />
+                                        </button>
                                     </div>
                                 </td>
                             </tr>)
