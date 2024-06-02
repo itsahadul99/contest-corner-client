@@ -25,7 +25,6 @@ const ManageUsers = () => {
                     <h1>Total User: {users.length}</h1>
                 </div>
                 <table className="table">
-                    {/* head */}
                     <thead>
                         <tr className="font-inter uppercase bg-primary/70 text-white">
                             <th>NAME</th>
