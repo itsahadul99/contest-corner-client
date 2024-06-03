@@ -18,6 +18,8 @@ import Profile from "../page/Dashboard/NormalUser/Profile";
 import Payment from "../page/Payment/Payment";
 import MyParticipantContest from "../page/Dashboard/NormalUser/MyParticipantContest";
 import EditContest from "../page/Dashboard/Creator/EditContest";
+import AdminRoute from "./AdminRoute";
+import CreatorRoute from "./CreatorRoute";
 
 const router = createBrowserRouter([
     {
@@ -32,7 +34,7 @@ const router = createBrowserRouter([
             {
                 path: '/allContest',
                 element: <AllContest />,
-                loader: () =>  fetch(`${import.meta.env.VITE_API_URL}/contestCount`)
+                loader: () => fetch(`${import.meta.env.VITE_API_URL}/contestCount`)
             },
             {
                 path: '/contestDetails/:id',
@@ -58,15 +60,15 @@ const router = createBrowserRouter([
             // Creator path
             {
                 path: 'addContest',
-                element: <AddContest />
+                element: <CreatorRoute><AddContest /></CreatorRoute>
             },
             {
                 path: 'myCreated',
-                element: <MyCreatorContest />
+                element: <CreatorRoute><MyCreatorContest /></CreatorRoute>
             },
             {
                 path: 'contestSubmitted',
-                element: <MySubmittedPage />
+                element: <CreatorRoute><MySubmittedPage /></CreatorRoute>
             },
             {
                 path: 'editContest/:id',
@@ -76,11 +78,11 @@ const router = createBrowserRouter([
             // Admin path
             {
                 path: 'manageUser',
-                element: <ManageUsers />
+                element: <AdminRoute><ManageUsers /></AdminRoute>
             },
             {
                 path: 'manageContest',
-                element: <ManageContests />
+                element: <AdminRoute><ManageContests /></AdminRoute>
             },
             // Normal user
             {
