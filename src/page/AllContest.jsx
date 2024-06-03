@@ -35,23 +35,82 @@ const AllContest = () => {
             setCurrentPage(currentPage - 1)
         }
     }
+    const [tabValue, setTabValue] = useState('')
+    const { data: tabData = [], } = useQuery({
+        queryKey: ['search', tabValue],
+        queryFn: async () => {
+            const { data } = await axiosCommon.get(`/contests/search?value=${tabValue}`)
+            return data
+        }
+    })
+    const handleTab = (value) => {
+        if (value === 'all') {
+            return setTabValue('')
+        }
+        setTabValue(value)
+    }
     if (isLoading) return <Spinner />
     return (
         <div className="min-h-[calc(100vh-380px)]">
             <HelmetTitle title="All Contest" />
             <Container>
-                <div>
+                <div className="flex justify-start px-5 lg:px-10 my-3">
+                    <div className="flex items-center -mx-4 space-x-2 overflow-x-auto overflow-y-hidden sm:justify-center flex-nowrap">
+                        <button onClick={() => {
+                            handleTab('all')
+                        }}
+                            className={`flex items-center flex-shrink-0 px-5 py-2 border-b-4 ${tabValue === '' ? 'border-primary' : ''}`}
+                        >
+                            All
+                        </button>
+                        <button
+                            onClick={() => {
+                                handleTab("gaming")
+                            }}
+                            className={`flex items-center flex-shrink-0 px-5 py-2 border-b-4 ${tabValue === 'gaming' ? 'border-primary' : ''}`}>Gaming</button>
+                        <button
+                            onClick={() => {
+                                handleTab("book")
+                            }}
+                            className={`flex items-center flex-shrink-0 px-5 py-2 border-b-4 ${tabValue === 'book' ? 'border-primary' : ''}`}
+                        >Book
+                        </button>
+                        <button
+                            onClick={() => {
+                                handleTab('movie')
+                            }}
+                            className={`flex items-center flex-shrink-0 px-5 py-2 border-b-4 ${tabValue === 'movie' ? 'border-primary' : ''}`}
+                        >Movie
+                        </button>
+                        <button onClick={() => {
+                            handleTab('marketing')
+                        }}
+                            className={`flex items-center flex-shrink-0 px-5 py-2 border-b-4 ${tabValue === 'marketing' ? 'border-primary' : ''}`}
+                        >
+                            Marketing
+                        </button>
+                        <button onClick={() => {
+                            handleTab('business')
+                        }}
+                            className={`flex items-center flex-shrink-0 px-5 py-2 border-b-4 ${tabValue === 'business' ? 'border-primary' : ''}`}
+                        >
+                            Business
+                        </button>
 
+                    </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-10 items-center">
                     {
-                        contests?.map(contest => contest?.status === 'Approved' && <ContestCard key={contest._id} contest={contest} />)
+                        !tabData.length > 0 && contests?.map(contest => contest?.status === 'Approved' && <ContestCard key={contest._id} contest={contest} />)
+                    }
+                    {
+                        tabData.map(contest => contest?.status === 'Approved' && <ContestCard key={contest._id} contest={contest} />)
                     }
                 </div>
                 <div className="my-5 lg:my-8 px-2 py-1 md:px-5 md:py-2 bg-gray-100 w-fit mx-auto rounded-full">
                     <button onClick={handlePrev} className="btn border-none rounded-none mr-2">Prev</button>
                     {
-                        pageNumber.map((number, idx) => <button onClick={() => setCurrentPage(number)} className={`${currentPage === number ? 'bg-secondary' : undefined} btn border-none rounded-none`} key={idx}>{number + 1}</button>)
+                        pageNumber.map((number, idx) => <button onClick={() => setCurrentPage(number)} className={`${currentPage === number ? 'bg-primary' : 'bg-gray-200'} btn border-none rounded-none`} key={idx}>{number + 1}</button>)
                     }
                     <button onClick={handleNext} className="btn border-none rounded-none">Next</button>
                     <select value={itemPerPage} onChange={handleItemPerPage}>
