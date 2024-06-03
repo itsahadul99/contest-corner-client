@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useRole from "../../../hooks/useRole";
 
 const AddContest = () => {
     const [loading, setLoading] = useState(false)
@@ -14,11 +15,15 @@ const AddContest = () => {
     const [imageText, setImageText] = useState('Upload Image')
     const [startDate, setStartDate] = useState(new Date());
     const axiosSecure = useAxiosSecure()
+    const [, status, ,] = useRole()
     const { user } = useAuth()
     const navigate = useNavigate()
     const handleSubmit = async e => {
-        setLoading(true)
         e.preventDefault()
+        if(status === 'blocked') {
+            return toast.error("You are blocked. Can't add any contest")
+        }
+        setLoading(true)
         const form = e.target;
         const contestName = form.name.value;
         const tags = form.type.value;
@@ -53,7 +58,7 @@ const AddContest = () => {
                 icon: "success"
             });
         }
-        else{
+        else {
             toast.error('Something went wrong! Please, try again.')
         }
     }

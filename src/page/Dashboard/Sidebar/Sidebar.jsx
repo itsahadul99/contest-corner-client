@@ -8,7 +8,8 @@ import AdminMenu from './Menu/AdminMenu'
 const Sidebar = () => {
     const [isActive, setActive] = useState(false)
     // eslint-disable-next-line no-unused-vars
-    const [role, isLoading] = useRole()
+    const [role, status, isLoading] = useRole()
+    console.log(status, role);
     // Sidebar Responsive Handler
     const handleToggle = () => {
         setActive(!isActive)

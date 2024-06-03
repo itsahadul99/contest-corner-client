@@ -25,6 +25,16 @@ const DropdownMenu = ({ user, handleDelete, refetch }) => {
             toast.error(error?.message);
         }
     }
+    const handleBlock = async(status) => {
+        const user = {
+            status: status,
+        }
+        try {
+            await mutateAsync(user)
+        } catch (error) {
+            toast.error(error?.message);
+        }
+    }
     return (
         <div>
             <Menu>
@@ -66,8 +76,8 @@ const DropdownMenu = ({ user, handleDelete, refetch }) => {
                             </button>
                         </MenuItem>
                         <MenuItem>
-                            <button className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-secondary/70">
-                                Block
+                            <button onClick={() => handleBlock(user?.status === 'unblocked'? 'blocked': 'unblocked')} className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-secondary/70">
+                                {user?.status === "unblocked" ? "Blocked": "Unblocked"}
                             </button>
                         </MenuItem>
                     </MenuItems>

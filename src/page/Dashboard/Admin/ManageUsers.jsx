@@ -4,16 +4,16 @@ import toast from "react-hot-toast";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 const ManageUsers = () => {
     const axiosSecure = useAxiosSecure()
-    const {data: users= [], refetch} = useQuery({
+    const { data: users = [], refetch } = useQuery({
         queryKey: ['users'],
-        queryFn: async() => {
-            const {data} = await axiosSecure.get('/users')
+        queryFn: async () => {
+            const { data } = await axiosSecure.get('/users')
             return data
         }
     })
     const handleDelete = async id => {
-        const {data} = await axiosSecure.delete(`/user/delete/${id}`)
-        if(data.deletedCount > 0){
+        const { data } = await axiosSecure.delete(`/user/delete/${id}`)
+        if (data.deletedCount > 0) {
             refetch()
             toast.success("Successfully delete the user")
         }
@@ -29,6 +29,7 @@ const ManageUsers = () => {
                         <tr className="font-inter uppercase bg-primary/70 text-white">
                             <th>NAME</th>
                             <th>Email</th>
+                            <th>Status</th>
                             <th>Role</th>
                             <th>ACTION</th>
                         </tr>
@@ -37,10 +38,13 @@ const ManageUsers = () => {
                         {
                             users.map((user) => <tr key={user?._id}>
                                 <td>
-                                    {user?.name ? user?.name: "Not found"}
+                                    {user?.name ? user?.name : "Not found"}
                                 </td>
                                 <td>
                                     {user?.email}
+                                </td>
+                                <td>
+                                    {user?.status}
                                 </td>
                                 <td>
                                     {user?.role}
