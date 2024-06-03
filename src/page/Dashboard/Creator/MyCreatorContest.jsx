@@ -5,6 +5,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import SectionTitle from "../../../components/shared/SectionTitle";
 
 const MyCreatorContest = () => {
     const axiosSecure = useAxiosSecure()
@@ -42,54 +43,54 @@ const MyCreatorContest = () => {
     }
     return (
         <div>
-            <div className="overflow-x-auto overflow-y-auto p-8 shadow-sm mt-12 bg-gray-100 rounded-md border">
-                <div className="text-[#151515] font-bold my-5 text-2xl uppercase ">
-                    <h1>My Total Contest:{myContests.length}</h1>
-                </div>
-                <table className="table">
-                    <thead>
-                        <tr className="font-inter uppercase bg-primary/70 text-white">
-                            <th>Title</th>
-                            <th>Status</th>
-                            <th>ACTION</th>
-                            <th>Submission</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            myContests.map((contest) => <tr key={contest?._id}>
-                                <td>
-                                    {contest?.contestName ? contest?.contestName : "Not found"}
-                                </td>
-                                <td className={contest?.status === 'Approved' ? 'text-primary font-medium' : 'text-secondary font-medium'}>
-                                    {contest?.status}
-                                </td>
-                                <td>
-                                    <div className="flex items-center gap-2">
-                                        <button
-                                            disabled={contest?.status === 'Approved'}
-                                            onClick={() => handleDelete(contest._id)}
-                                            title="Delete"
-                                            className="btn bg-red-700 border-none hover:bg-rose-950 btn-xs">
-                                            <MdDeleteForever size={20} />
-                                        </button>
-                                        <button
-                                            disabled={contest?.status === 'Approved'}
-                                            // onClick={() => handleComment(user?._id)}
-                                            title="Comment"
-                                            className="btn btn-xs bg-green-400 hover:bg-green-800 border-none"><CiEdit size={20} />
-                                        </button>
-                                    </div>
-                                </td>
-                                <td>
-                                    <Link to='/dashboard/contestSubmitted'>Submission</Link>
-                                </td>
-                            </tr>)
-                        }
-                    </tbody>
+            <SectionTitle title="Your Added Contest" subTitle="Watch your" />
+                <div className="overflow-x-auto overflow-y-auto p-8 shadow-sm  bg-gray-100 rounded-md border">
+                    <div className="text-[#151515] font-bold my-5 text-2xl uppercase ">
+                        <h1>My Total Contest:{myContests.length}</h1>
+                    </div>
+                    <table className="table">
+                        <thead>
+                            <tr className="font-inter uppercase bg-primary/70 text-white">
+                                <th>Title</th>
+                                <th>Status</th>
+                                <th>ACTION</th>
+                                <th>Submission</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                myContests.map((contest) => <tr key={contest?._id}>
+                                    <td>
+                                        {contest?.contestName ? contest?.contestName : "Not found"}
+                                    </td>
+                                    <td className={contest?.status === 'Approved' ? 'text-primary font-medium' : 'text-secondary font-medium'}>
+                                        {contest?.status}
+                                    </td>
+                                    <td>
+                                        <div className="flex items-center gap-2">
+                                            <button
+                                                disabled={contest?.status === 'Approved'}
+                                                onClick={() => handleDelete(contest._id)}
+                                                title="Delete"
+                                                className="btn bg-red-700 border-none hover:bg-rose-950 btn-xs">
+                                                <MdDeleteForever size={20} />
+                                            </button>
+                                            <Link to={`/dashboard/editContest/${contest?._id}`}
+                                                disabled={contest?.status === 'Approved'}
+                                                title="Comment"
+                                                className="btn btn-xs bg-green-400 hover:bg-green-800 border-none"><CiEdit size={20} />
+                                            </Link>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <Link to='/dashboard/contestSubmitted' className="px-2 py-1 border rounded-full bg-primary/20 hover:bg-secondary/20 text-black font-bold">Submission</Link>
+                                    </td>
+                                </tr>)
+                            }
+                        </tbody>
 
-                </table>
-            </div>
+                    </table>
+                </div>
         </div>
     );
 };

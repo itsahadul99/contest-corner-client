@@ -67,7 +67,6 @@ const DropdownMenu = ({ user, handleDelete, refetch }) => {
                         </MenuItem>
                         <MenuItem>
                             <button className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-secondary/70">
-                                {/* <TrashIcon className="size-4 fill-white/30" /> */}
                                 Block
                             </button>
                         </MenuItem>

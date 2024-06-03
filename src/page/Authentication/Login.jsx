@@ -90,9 +90,9 @@ const Login = () => {
                         <button
                             disabled={loading}
                             type='submit'
-                            className='bg-primary w-full rounded-md py-3 text-white text-center'
+                            className='bg-primary w-full rounded-md py-3 text-white flex items-center justify-center text-center'
                         >
-                            {loading ? <TbFidgetSpinner className='animate-spin flex items-center justify-center' /> : 'Continue'}
+                            {loading ? <TbFidgetSpinner className='animate-spin' /> : 'Continue'}
                         </button>
                     </div>
                 </form>

@@ -1,15 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
-import Container from "../../../components/shared/Container";
 import SectionTitle from "../../../components/shared/SectionTitle";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import TaskSubmitModal from "../../../components/TaskSubmitModal";
 
 const MyParticipantContest = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure()
+    const [isOpen, setIsOpen] = useState(false)
     const { data = [] } = useQuery({
-        queryKey: ['payment', user?.email],
+        queryKey: ['payments', user?.email],
         queryFn: async () => {
             const { data } = await axiosSecure.get(`/payments/${user?.email}`)
             return data
@@ -18,7 +19,6 @@ const MyParticipantContest = () => {
     return (
         <div className="min-h-[calc(100vh-380px)]">
             <SectionTitle title="My Participant Contest" subTitle="Ready for next" />
-            <Container>
                 <div className="overflow-x-auto overflow-y-auto p-8 shadow-sm bg-gray-100 rounded-md border">
                     <div className="text-[#151515] font-bold my-5 text-2xl uppercase ">
                         <h1>My Total Contest: {data.length}</h1>
@@ -49,14 +49,14 @@ const MyParticipantContest = () => {
                                         {contest?.status}
                                     </td>
                                     <td className="font-bold text-green-400">
-                                        <Link to='/dashboard/contestSubmitted' className="btn btn-sm bg-primary/70 hover:bg-secondary/70">Submit Task</Link>
+                                        <button onClick={() => setIsOpen(true)} className="btn btn-sm bg-primary/70 hover:bg-secondary/70 border-none">Submit Task</button>
                                     </td>
+                                    <TaskSubmitModal isOpen={isOpen} setModalOpen={setIsOpen} task={contest?.task} />
                                 </tr>)
                             }
                         </tbody>
                     </table>
                 </div>
-            </Container>
         </div>
     );
 };

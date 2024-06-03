@@ -79,6 +79,7 @@ const CheckoutForm = ({ contest }) => {
                     date: new Date(),
                     contestId: contest?._id,
                     contestName: contest?.contestName,
+                    task: contest?.taskSubmited,
                     status: 'Success'
                 }
                 const {data} = await axiosSecure.post('/payments', payment)

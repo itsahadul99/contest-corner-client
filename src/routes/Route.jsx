@@ -17,6 +17,7 @@ import MySubmittedPage from "../page/Dashboard/Creator/MySubmittedPage";
 import Profile from "../page/Dashboard/NormalUser/Profile";
 import Payment from "../page/Payment/Payment";
 import MyParticipantContest from "../page/Dashboard/NormalUser/MyParticipantContest";
+import EditContest from "../page/Dashboard/Creator/EditContest";
 
 const router = createBrowserRouter([
     {
@@ -67,6 +68,11 @@ const router = createBrowserRouter([
                 path: 'contestSubmitted',
                 element: <MySubmittedPage />
             },
+            {
+                path: 'editContest/:id',
+                loader: ({ params }) => fetch(`${import.meta.env.VITE_API_URL}/editContest/${params.id}`),
+                element: <EditContest />
+            },
             // Admin path
             {
                 path: 'manageUser',
@@ -84,7 +90,7 @@ const router = createBrowserRouter([
             {
                 path: 'myContest',
                 element: <MyParticipantContest />
-            }
+            },
 
         ]
     },

@@ -47,13 +47,9 @@ const ManageContests = () => {
     }
     const [isOpen, setIsOpen] = useState(false)
     const [commentId, setCommentId] = useState()
-    // const handleComment = async (id) => {
-    //     console.log((id));
-    //     setIsOpen(true)
-    // }
     return (
         <div>
-            <div className="overflow-x-auto overflow-y-auto p-8 shadow-sm mt-12 bg-gray-100 rounded-md border">
+            <div className="overflow-x-auto overflow-y-auto p-8 shadow-sm bg-gray-100 rounded-md border">
                 <div className="text-[#151515] font-bold my-5 text-2xl uppercase ">
                     <h1>Total Contest:{contests.length}</h1>
                 </div>
