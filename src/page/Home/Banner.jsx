@@ -34,7 +34,7 @@ const Banner = ({handleSearch}) => {
                         </div>
                         <p className="my-5 dark:text-[#333333] font-medium text-sm md:text-lg">Discover, participate, and win big in exciting contests from around the world. Whether you're a creative talent, a tech wizard, or a passionate enthusiast, ContestHub connects you to endless opportunities to showcase your skills and earn amazing rewards. Jump in and start competing today!</p>
                         <form onSubmit={handleSearch} className="w-full lg:w-1/2 flex my-5 md:my-8">
-                            <input type="text" className="p-2 bg-gray-100 opacity-70 border-primary/70 border-2 focus:outline-none w-full" name="" placeholder="Find your contest by it's tag name" />
+                            <input type="text" className="p-2 bg-gray-100 opacity-70 border-primary/70 border-2 focus:outline-none w-full" name="value" placeholder="Find your contest by it's tag name" />
                             <button
                             type="submit"
                             className="px-5 bg-primary/70 duration-300 hover:bg-secondary rounded-r-md font-bold "
