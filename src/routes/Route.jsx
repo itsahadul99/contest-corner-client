@@ -15,6 +15,7 @@ import MyCreatorContest from "../page/Dashboard/Creator/MyCreatorContest";
 import AddContest from "../page/Dashboard/Creator/AddContest";
 import MySubmittedPage from "../page/Dashboard/Creator/MySubmittedPage";
 import Profile from "../page/Dashboard/NormalUser/Profile";
+import Payment from "../page/Payment/Payment";
 
 const router = createBrowserRouter([
     {
@@ -35,6 +36,11 @@ const router = createBrowserRouter([
                 path: '/contestDetails/:id',
                 loader: ({ params }) => fetch(`${import.meta.env.VITE_API_URL}/contestDetails/${params.id}`),
                 element: <PrivateRoute><ContestDetails /></PrivateRoute>
+            },
+            {
+                path: '/payment/:id',
+                loader: ({ params }) => fetch(`${import.meta.env.VITE_API_URL}/payment/${params.id}`),
+                element: <Payment />
             }
         ],
     },

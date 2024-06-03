@@ -1,9 +1,9 @@
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import HelmetTitle from "../components/HelmetTitle";
 import Container from "../components/shared/Container";
 const ContestDetails = () => {
     const contest = useLoaderData()
-    const { img, contestName, participation, prize, description, deadline, entryFee, taskSubmited } = contest;
+    const { img, contestName, participation, prize, description, deadline, entryFee, taskSubmited, _id } = contest;
     return (
         <div className="min-h-[calc(100vh-380px)]">
             <HelmetTitle title="Details Page" />
@@ -22,7 +22,7 @@ const ContestDetails = () => {
                             <p><span className="font-bold">Deadline: </span>{new Date(deadline).toLocaleDateString()}</p>
                             <div className="flex justify-between items-center w-full">
                                 <p><span className="font-bold">Entry Fee: </span>{entryFee}</p>
-                                <button className=" text-sm md:text-lg btn bg-primary hover:bg-secondary">Registration</button>
+                                <Link to={`/payment/${_id}`} className=" text-sm md:text-lg btn bg-primary hover:bg-secondary">Registration</Link>
                             </div>
                         </div>
                     </div>
