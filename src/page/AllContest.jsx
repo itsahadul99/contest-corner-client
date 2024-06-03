@@ -35,7 +35,6 @@ const AllContest = () => {
             setCurrentPage(currentPage - 1)
         }
     }
-    console.log(currentPage, itemPerPage);
     if (isLoading) return <Spinner />
     return (
         <div className="min-h-[calc(100vh-380px)]">
@@ -52,7 +51,7 @@ const AllContest = () => {
                 <div className="my-5 lg:my-8 px-2 py-1 md:px-5 md:py-2 bg-gray-100 w-fit mx-auto rounded-full">
                     <button onClick={handlePrev} className="btn border-none rounded-none mr-2">Prev</button>
                     {
-                        pageNumber.map((number, idx) => <button onClick={() => setCurrentPage(number - 1)} className={`${currentPage === number ? 'bg-secondary' : undefined} btn border-none rounded-none`} key={idx}>{number + 1}</button>)
+                        pageNumber.map((number, idx) => <button onClick={() => setCurrentPage(number)} className={`${currentPage === number ? 'bg-secondary' : undefined} btn border-none rounded-none`} key={idx}>{number + 1}</button>)
                     }
                     <button onClick={handleNext} className="btn border-none rounded-none">Next</button>
                     <select value={itemPerPage} onChange={handleItemPerPage}>

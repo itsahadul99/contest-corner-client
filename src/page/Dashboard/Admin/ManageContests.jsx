@@ -5,6 +5,8 @@ import { CiEdit } from "react-icons/ci";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import CommentModal from "../../../components/CommentModal";
+import { useState } from "react";
 const ManageContests = () => {
     const [contests, , refetch] = useContests()
     const axiosSecure = useAxiosSecure()
@@ -43,16 +45,12 @@ const ManageContests = () => {
             }
         });
     }
-    const handleComment = async (id) => {
-        console.log(id);
-        // const updateContest = {
-        // }
-        // const { data } = await axiosSecure.patch(`/contests/update/${id}`, updateContest)
-        // if (data.modifiedCount > 0) {
-        //     refetch()
-        //     toast.success("Approved this contest successfully")
-        // }
-    }
+    const [isOpen, setIsOpen] = useState(false)
+    const [commentId, setCommentId] = useState()
+    // const handleComment = async (id) => {
+    //     console.log((id));
+    //     setIsOpen(true)
+    // }
     return (
         <div>
             <div className="overflow-x-auto overflow-y-auto p-8 shadow-sm mt-12 bg-gray-100 rounded-md border">
@@ -96,7 +94,11 @@ const ManageContests = () => {
                                             <MdDeleteForever size={20} />
                                         </button>
                                         <button
-                                            onClick={() => handleComment(user?._id)}
+                                        disabled={user?.comment}
+                                            onClick={() => {
+                                                setCommentId(user?._id)
+                                                setIsOpen(true)
+                                            }}
                                             title="Comment"
                                             className="btn btn-xs bg-green-400 hover:bg-green-800 border-none"><CiEdit size={20} />
                                         </button>
@@ -104,6 +106,7 @@ const ManageContests = () => {
                                 </td>
                             </tr>)
                         }
+                        <CommentModal setModalOpen={setIsOpen} isOpen={isOpen} id={commentId} />
                     </tbody>
 
                 </table>
