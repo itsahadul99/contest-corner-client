@@ -30,7 +30,7 @@ const Payment = () => {
                             <p><span className="font-bold">Entry Fee: </span>${entryFee}</p>
                         </div>
                         <Elements stripe={stripePromise}>
-                            <CheckoutForm entryFee={paymentContest} />
+                            <CheckoutForm contest={paymentContest} />
                         </Elements>
                     </div>
             </Container>

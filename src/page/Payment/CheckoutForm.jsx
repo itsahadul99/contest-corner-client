@@ -3,12 +3,16 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import './CheckoutForm.css'
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-const CheckoutForm = ({ entryFee }) => {
-    const price = parseFloat(entryFee?.entryFee)
+import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
+const CheckoutForm = ({ contest }) => {
+    const price = parseFloat(contest?.entryFee)
     const stripe = useStripe();
     const elements = useElements();
     const axiosSecure = useAxiosSecure()
     const [clientSecret, setClientSecret] = useState('')
+    const [error , setError] = useState("")
+    const {user} = useAuth()
     useEffect(() => {
         if (price > 0) {
             axiosSecure.post('/create-payment-intent', { price })
@@ -18,7 +22,6 @@ const CheckoutForm = ({ entryFee }) => {
         }
 
     }, [axiosSecure, price])
-    console.log(clientSecret);
     const handleSubmit = async (event) => {
         // Block native form submission.
         event.preventDefault();
@@ -46,8 +49,43 @@ const CheckoutForm = ({ entryFee }) => {
 
         if (error) {
             console.log('[error]', error);
+            setError(error)
         } else {
             console.log('[PaymentMethod]', paymentMethod);
+            setError("")
+        }
+        // confirm payment
+        const {paymentIntent, error: confirmPaymentError} = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: card,
+                billing_details: {
+                    email: user?.email || 'anonymous',
+                    name: user?.displayName || 'anonymous'
+                }
+            }
+        })
+        if(confirmPaymentError){
+            console.log(confirmPaymentError);
+        }
+        else{
+            console.log(paymentIntent);
+            if(paymentIntent.status === 'succeeded'){
+                const payment = {
+                    participantEmail: user?.email,
+                    participantName: user?.displayName,
+                    prize: price,
+                    transactionId: paymentIntent.id,
+                    date: new Date(),
+                    contestId: contest?._id,
+                    contestName: contest?.contestName,
+                    status: 'Success'
+                }
+                const {data} = await axiosSecure.post('/payments', payment)
+                if (data?.insertedId) {
+                    toast.success('Successfully registration complete')
+                }
+                
+            }
         }
     };
 
@@ -72,6 +110,9 @@ const CheckoutForm = ({ entryFee }) => {
             <button type="submit" disabled={!stripe} className=" text-sm md:text-lg btn bg-primary hover:bg-secondary">
                 Pay
             </button>
+            {
+                error && <p className="text-red-400 mt-2">{error?.message}</p>
+            }
         </form>
     );
 };
