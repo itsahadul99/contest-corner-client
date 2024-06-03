@@ -16,6 +16,7 @@ import AddContest from "../page/Dashboard/Creator/AddContest";
 import MySubmittedPage from "../page/Dashboard/Creator/MySubmittedPage";
 import Profile from "../page/Dashboard/NormalUser/Profile";
 import Payment from "../page/Payment/Payment";
+import MyParticipantContest from "../page/Dashboard/NormalUser/MyParticipantContest";
 
 const router = createBrowserRouter([
     {
@@ -79,6 +80,10 @@ const router = createBrowserRouter([
             {
                 path: 'profile',
                 element: <Profile />
+            },
+            {
+                path: 'myContest',
+                element: <MyParticipantContest />
             }
 
         ]

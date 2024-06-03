@@ -5,9 +5,11 @@ import { useEffect, useState } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 const CheckoutForm = ({ contest }) => {
     const price = parseFloat(contest?.entryFee)
     const stripe = useStripe();
+    const navigate = useNavigate()
     const elements = useElements();
     const axiosSecure = useAxiosSecure()
     const [clientSecret, setClientSecret] = useState('')
@@ -68,7 +70,6 @@ const CheckoutForm = ({ contest }) => {
             console.log(confirmPaymentError);
         }
         else{
-            console.log(paymentIntent);
             if(paymentIntent.status === 'succeeded'){
                 const payment = {
                     participantEmail: user?.email,
@@ -81,7 +82,9 @@ const CheckoutForm = ({ contest }) => {
                     status: 'Success'
                 }
                 const {data} = await axiosSecure.post('/payments', payment)
+                console.log(data);
                 if (data?.insertedId) {
+                    navigate('/dashboard/myContest')
                     toast.success('Successfully registration complete')
                 }
                 
