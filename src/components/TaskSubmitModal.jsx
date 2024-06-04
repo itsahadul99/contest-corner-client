@@ -7,7 +7,28 @@ import {
     DialogTitle,
 } from '@headlessui/react'
 import { Fragment } from 'react'
-const TaskSubmitModal = ({setModalOpen, isOpen, task}) => {
+import useAuth from '../hooks/useAuth';
+import useAxiosSecure from '../hooks/useAxiosSecure';
+import toast from 'react-hot-toast';
+const TaskSubmitModal = ({setModalOpen, isOpen, contest}) => {
+    const {user} = useAuth()
+    const axiosSecure = useAxiosSecure()
+    const handleSubmit = async e => {
+        e.preventDefault()
+        const answer = e.target.ans.value;
+        const submittedData = {
+            answer: answer,
+            participantEmail: user?.email,
+            contestId: contest?._id,
+            contestName: contest?.contestName,
+            prize: contest?.prize,
+        }
+        const {data} = await axiosSecure.post('/submittedTask', submittedData)
+        if(data.insertedId){
+            e.target.reset()
+            toast.success('Successfully submit your task. Wait for winner declaration')
+        }
+    }
     return (
         <Transition appear show={isOpen} as={Fragment}>
             <Dialog
@@ -46,9 +67,9 @@ const TaskSubmitModal = ({setModalOpen, isOpen, task}) => {
                                     Write your answer
                                 </DialogTitle>
                                 <div className='mt-2 w-full'>
-                                    <p className='my-2'><span className='font-bold'>Your Task:</span> {task}</p>
-                                    <form>
-                                        <textarea name="comment" className='w-full bg-white border rounded-md p-5' placeholder='Write your comment here'></textarea>
+                                    <p className='my-2'><span className='font-bold'>Your Task:</span> {contest?.task}</p>
+                                    <form onSubmit={handleSubmit}>
+                                        <textarea name="ans" className='w-full bg-white border rounded-md p-5' placeholder='Write your answer here'></textarea>
                                         <button
                                             type='submit'
                                             className='inline-flex justify-center rounded-md border border-transparent bg-green-100 px-4 py-2 text-sm font-medium text-green-600 hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2'

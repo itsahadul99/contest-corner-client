@@ -5,15 +5,16 @@ import useRole from '../../../hooks/useRole'
 import UserMenu from './Menu/UserMenu'
 import CreatorMenu from './Menu/CreatorMenu'
 import AdminMenu from './Menu/AdminMenu'
+import useAuth from '../../../hooks/useAuth'
 const Sidebar = () => {
     const [isActive, setActive] = useState(false)
     // eslint-disable-next-line no-unused-vars
-    const [role, status, isLoading] = useRole()
-    console.log(status, role);
+    const [role, , ,] = useRole()
     // Sidebar Responsive Handler
     const handleToggle = () => {
         setActive(!isActive)
     }
+    const {user} = useAuth()
     return (
         <>
             {/* Small Screen Navbar */}
@@ -35,6 +36,10 @@ const Sidebar = () => {
                         <div className='w-full hidden md:flex mx-auto px-2 py-2 shadow-lg rounded-sm'>
                             <Link to='/' className="text-sm md:text-2xl lg:text-3xl text-primary font-black">Contest <span className="text-secondary">Corner</span></Link>
                         </div>
+                    </div>
+                    <div className='flex flex-col justify-center items-center mt-5 md:mt-12 rounded-full'>
+                        <img className='h-24 w-24 lg:w-32 lg:h-32 rounded-full' src={user?.photoURL} alt="" />
+                        <p className='font-bold mt-2'>{user?.email}</p>
                     </div>
                     {/* Nav Items */}
                     <div className='flex flex-col justify-between flex-1 mt-6'>

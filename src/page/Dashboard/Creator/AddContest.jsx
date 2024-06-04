@@ -43,9 +43,10 @@ const AddContest = () => {
             deadline: startDate,
             taskSubmited: taskSubmitted,
             creatorEmail: user?.email,
+            creatorImg: user?.photoURL,
             creatorName: user?.displayName,
             participation: 0,
-            status: 'Request',
+            status: 'Pending',
 
         }
         const { data } = await axiosSecure.post('/addContest', contestData)

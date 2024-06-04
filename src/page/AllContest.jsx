@@ -12,7 +12,7 @@ const AllContest = () => {
     const [itemPerPage, setItemPerPage] = useState(10)
     const [currentPage, setCurrentPage] = useState(0)
     const { data: contests = [], isLoading } = useQuery({
-        queryKey: ['contests', currentPage],
+        queryKey: ['contests', currentPage, itemPerPage],
         queryFn: async () => {
             const { data } = await axiosCommon.get(`/contests?page=${currentPage}&size=${itemPerPage}`)
             return data
@@ -44,11 +44,9 @@ const AllContest = () => {
         }
     })
     const handleTab = (value) => {
-        if (value === 'all') {
-            return setTabValue('')
-        }
         setTabValue(value)
     }
+    console.log(itemPerPage, currentPage);
     if (isLoading) return <Spinner />
     return (
         <div className="min-h-[calc(100vh-380px)]">
@@ -56,13 +54,6 @@ const AllContest = () => {
             <Container>
                 <div className="flex justify-start px-5 lg:px-10 my-3">
                     <div className="flex items-center -mx-4 space-x-2 overflow-x-auto overflow-y-hidden sm:justify-center flex-nowrap">
-                        <button onClick={() => {
-                            handleTab('all')
-                        }}
-                            className={`flex items-center flex-shrink-0 px-5 py-2 border-b-4 ${tabValue === '' ? 'border-primary' : ''}`}
-                        >
-                            All
-                        </button>
                         <button
                             onClick={() => {
                                 handleTab("gaming")
@@ -101,10 +92,10 @@ const AllContest = () => {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-10 items-center">
                     {
-                        !tabData.length > 0 && contests?.map(contest => contest?.status === 'Approved' && <ContestCard key={contest._id} contest={contest} />)
+                        !tabData.length > 0 && contests?.map(contest => contest?.status === 'Accepted' && <ContestCard key={contest._id} contest={contest} />)
                     }
                     {
-                        tabData.map(contest => contest?.status === 'Approved' && <ContestCard key={contest._id} contest={contest} />)
+                        tabData.map(contest => contest?.status === 'Accepted' && <ContestCard key={contest._id} contest={contest} />)
                     }
                 </div>
                 <div className="my-5 lg:my-8 px-2 py-1 md:px-5 md:py-2 bg-gray-100 w-fit mx-auto rounded-full">

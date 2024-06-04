@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import ContestCard from "../../components/ContestCard";
-import FeaturedContest from "./FeaturedContest";
+import BestContestCreator from "./BestContestCreator";
 
 const Home = () => {
     const axiosCommon = useAxiosCommon()
@@ -35,7 +35,7 @@ const Home = () => {
                 }
             </div>
             <PopularContest />
-            <FeaturedContest />
+            <BestContestCreator />
         </>
     );
 };

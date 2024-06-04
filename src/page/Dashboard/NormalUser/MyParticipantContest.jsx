@@ -51,7 +51,7 @@ const MyParticipantContest = () => {
                                     <td className="font-bold text-green-400">
                                         <button onClick={() => setIsOpen(true)} className="btn btn-sm bg-primary/70 hover:bg-secondary/70 border-none">Submit Task</button>
                                     </td>
-                                    <TaskSubmitModal isOpen={isOpen} setModalOpen={setIsOpen} task={contest?.task} />
+                                    <TaskSubmitModal isOpen={isOpen} setModalOpen={setIsOpen} contest={contest} />
                                 </tr>)
                             }
                         </tbody>

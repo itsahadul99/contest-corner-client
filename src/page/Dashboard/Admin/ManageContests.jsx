@@ -12,7 +12,7 @@ const ManageContests = () => {
     const axiosSecure = useAxiosSecure()
     const handleConfirm = async id => {
         const updateContest = {
-            status: 'Approved'
+            status: 'Accepted'
         }
         const { data } = await axiosSecure.patch(`/contests/update/${id}`, updateContest)
         if (data.modifiedCount > 0) {
@@ -77,9 +77,9 @@ const ManageContests = () => {
                                 <td>
                                     <div className="flex items-center justify-center gap-2">
                                         <button
-                                            disabled={user?.status === 'Approved'}
+                                            disabled={user?.status === 'Accepted'}
                                             onClick={() => handleConfirm(user._id)}
-                                            title="Approved"
+                                            title="Accepted"
                                             className="btn disabled:cursor-not-allowed bg-primary border-none hover:bg-secondary btn-xs"><IoMdCheckmark size={20} />
                                         </button>
 
