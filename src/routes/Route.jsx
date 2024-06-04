@@ -77,8 +77,8 @@ const router = createBrowserRouter([
                 element: <CreatorRoute><EditContest /></CreatorRoute>
             },
             {
-                path: 'contestSubmitDetails',
-                // loader: ({ params }) => fetch(`${import.meta.env.VITE_API_URL}/editContest/${params.id}`),
+                path: 'contestSubmitDetails/:id',
+                loader: ({ params }) => fetch(`${import.meta.env.VITE_API_URL}/contestSubmitDetails/${params.id}`),
                 element: <CreatorRoute><ContestSubmitDetails /></CreatorRoute>
             },
             // Admin path

@@ -19,7 +19,7 @@ const TaskSubmitModal = ({setModalOpen, isOpen, contest}) => {
         const submittedData = {
             answer: answer,
             participantEmail: user?.email,
-            contestId: contest?._id,
+            contestId: contest?.contestId,
             contestName: contest?.contestName,
             prize: contest?.prize,
             participantName: user?.displayName,
