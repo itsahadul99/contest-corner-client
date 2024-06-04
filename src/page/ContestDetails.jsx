@@ -3,6 +3,7 @@ import HelmetTitle from "../components/HelmetTitle";
 import Container from "../components/shared/Container";
 import useRole from "../hooks/useRole";
 import toast from "react-hot-toast";
+import CountdownTimer from "./Home/CountdownTimer";
 const ContestDetails = () => {
     const contest = useLoaderData()
     const { img, contestName, participation, prize, description, deadline, entryFee, taskSubmited, _id } = contest;
@@ -12,6 +13,7 @@ const ContestDetails = () => {
             return toast.error("You are blocked by Admin & and can't registration")
         }
     }
+    const startDate = new Date(deadline).toISOString();
     return (
         <div className="min-h-[calc(100vh-380px)]">
             <HelmetTitle title="Details Page" />
@@ -27,7 +29,7 @@ const ContestDetails = () => {
                         <div className="text-sm md:text-lg font-medium">
                             <p><span className="font-bold">Prize: </span>{prize}</p>
                             <p><span className="font-bold">Participation: </span>{participation}</p>
-                            <p><span className="font-bold">Deadline: </span>{new Date(deadline).toLocaleDateString()}</p>
+                            <div><CountdownTimer endDate={startDate} /></div>
                             <div className="flex justify-between items-center w-full">
                                 <p><span className="font-bold">Entry Fee: </span>{entryFee}</p>
                                 <Link to={status === 'blocked' ?'/':`/payment/${_id}`}><button onClick={handleRegistration} className=" text-sm md:text-lg btn bg-primary hover:bg-secondary">Registration</button></Link>
