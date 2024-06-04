@@ -23,6 +23,7 @@ const TaskSubmitModal = ({setModalOpen, isOpen, contest}) => {
             contestName: contest?.contestName,
             prize: contest?.prize,
             participantName: user?.displayName,
+            participantImg: user?.photoURL
         }
         const {data} = await axiosSecure.post('/submittedTask', submittedData)
         if(data.insertedId){
@@ -70,7 +71,7 @@ const TaskSubmitModal = ({setModalOpen, isOpen, contest}) => {
                                 <div className='mt-2 w-full'>
                                     <p className='my-2'><span className='font-bold'>Your Task:</span> {contest?.task}</p>
                                     <form onSubmit={handleSubmit}>
-                                        <textarea name="ans" className='w-full bg-white border rounded-md p-5' placeholder='Write your answer here'></textarea>
+                                        <textarea maxLength={100} name="ans" className='w-full bg-white border rounded-md p-5' placeholder='Write your answer here (max 100 character)'></textarea>
                                         <button
                                             type='submit'
                                             className='inline-flex justify-center rounded-md border border-transparent bg-green-100 px-4 py-2 text-sm font-medium text-green-600 hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2'

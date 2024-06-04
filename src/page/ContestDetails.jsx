@@ -6,13 +6,17 @@ import toast from "react-hot-toast";
 import CountdownTimer from "./Home/CountdownTimer";
 const ContestDetails = () => {
     const contest = useLoaderData()
-    const { img, contestName, participation, prize, description, deadline, entryFee, taskSubmited, _id } = contest;
+    const { img, contestName, participation, prize, description, deadline, entryFee, taskSubmited, _id, contestResult } = contest;
     const [, status, ,] = useRole()
     const handleRegistration = () => {
         if(status === 'blocked'){
             return toast.error("You are blocked by Admin & and can't registration")
         }
+        if(contestResult === "Declared Winner"){
+            toast.error("This contest winner is already declared. You can't join this!!")
+        }
     }
+    console.log(contestResult);
     const startDate = new Date(deadline).toISOString();
     return (
         <div className="min-h-[calc(100vh-380px)]">
@@ -32,7 +36,7 @@ const ContestDetails = () => {
                             <div><CountdownTimer endDate={startDate} /></div>
                             <div className="flex justify-between items-center w-full">
                                 <p><span className="font-bold">Entry Fee: </span>{entryFee}</p>
-                                <Link to={status === 'blocked' ?'/':`/payment/${_id}`}><button onClick={handleRegistration} className=" text-sm md:text-lg btn bg-primary hover:bg-secondary">Registration</button></Link>
+                                <Link to={status === 'blocked' ||contestResult === "Declared Winner" ?'/allContest':`/payment/${_id}`}><button onClick={handleRegistration} className=" text-sm md:text-lg btn bg-primary hover:bg-secondary">Registration</button></Link>
                             </div>
                         </div>
                     </div>
