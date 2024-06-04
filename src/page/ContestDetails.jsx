@@ -6,13 +6,13 @@ import toast from "react-hot-toast";
 import CountdownTimer from "./Home/CountdownTimer";
 const ContestDetails = () => {
     const contest = useLoaderData()
-    const { img, contestName, participation, prize, description, deadline, entryFee, taskSubmited, _id, contestResult } = contest;
+    const { img, contestName, participation, prize, description, deadline, entryFee, taskSubmited, _id, contestResult, winnerName, winnerImg } = contest;
     const [, status, ,] = useRole()
     const handleRegistration = () => {
-        if(status === 'blocked'){
+        if (status === 'blocked') {
             return toast.error("You are blocked by Admin & and can't registration")
         }
-        if(contestResult === "Declared Winner"){
+        if (contestResult === "Declared Winner") {
             toast.error("This contest winner is already declared. You can't join this!!")
         }
     }
@@ -31,12 +31,25 @@ const ContestDetails = () => {
                         <p className="text-sm md:text-lg font-medium">{description}</p>
                         <p><span className="font-bold text-sm md:text-lg">Task: </span>{taskSubmited}</p>
                         <div className="text-sm md:text-lg font-medium">
-                            <p><span className="font-bold">Prize: </span>{prize}</p>
-                            <p><span className="font-bold">Participation: </span>{participation}</p>
-                            <div><CountdownTimer endDate={startDate} /></div>
-                            <div className="flex justify-between items-center w-full">
-                                <p><span className="font-bold">Entry Fee: </span>{entryFee}</p>
-                                <Link to={status === 'blocked' ||contestResult === "Declared Winner" ?'/allContest':`/payment/${_id}`}><button onClick={handleRegistration} className=" text-sm md:text-lg btn bg-primary hover:bg-secondary">Registration</button></Link>
+                            <div className="flex justify-between">
+                                <div>
+                                    <p><span className="font-bold">Prize: </span>{prize}</p>
+                                    <p><span className="font-bold">Participation: </span>{participation}</p>
+                                    <div><CountdownTimer endDate={startDate} /></div>
+                                    <p><span className="font-bold">Entry Fee: </span>{entryFee}</p>
+                                </div>
+                                {
+                                    contestResult === "Declared Winner" ? <div className="flex flex-col justify-center items-center">
+
+                                        {
+                                            winnerImg && <><p className="text-sm italic">Winner</p> <img className="w-28 rounded-sm h-24 lg:w-36 lg:h-28" src={winnerImg} alt="" /></>
+                                        }
+                                        <p className="text-sm mt-2">{winnerName}</p>
+                                    </div> : ''
+                                }
+                            </div>
+                            <div className="mt-2">
+                                <Link to={status === 'blocked' || contestResult === "Declared Winner" ? '/allContest' : `/payment/${_id}`}><button onClick={handleRegistration} className=" text-sm md:text-lg btn bg-primary hover:bg-secondary">Registration</button></Link>
                             </div>
                         </div>
                     </div>

@@ -63,20 +63,20 @@ const MyCreatorContest = () => {
                                     <td>
                                         {contest?.contestName ? contest?.contestName : "Not found"}
                                     </td>
-                                    <td className={contest?.status === 'Approved' ? 'text-primary font-medium' : 'text-secondary font-medium'}>
+                                    <td className={contest?.status === 'Accepted' ? 'text-primary font-medium' : 'text-secondary font-medium'}>
                                         {contest?.status}
                                     </td>
                                     <td>
                                         <div className="flex items-center gap-2">
                                             <button
-                                                disabled={contest?.status === 'Approved'}
+                                                disabled={contest?.status === 'Accepted'}
                                                 onClick={() => handleDelete(contest._id)}
                                                 title="Delete"
                                                 className="btn bg-red-700 border-none hover:bg-rose-950 btn-xs">
                                                 <MdDeleteForever size={20} />
                                             </button>
                                             <Link to={`/dashboard/editContest/${contest?._id}`}
-                                                disabled={contest?.status === 'Approved'}
+                                                disabled={contest?.status === 'Accepted'}
                                                 title="Comment"
                                                 className="btn btn-xs bg-green-400 hover:bg-green-800 border-none"><CiEdit size={20} />
                                             </Link>

@@ -34,7 +34,8 @@ const MyParticipantContest = () => {
                             <th>Title</th>
                             <th>Transaction Id</th>
                             <th>Prize</th>
-                            <th>Status</th>
+                            <th>Payment Status</th>
+                            <th>Result</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -50,11 +51,14 @@ const MyParticipantContest = () => {
                                 <td>
                                     ${contest?.prize}
                                 </td>
-                                <td className='text-primary font-medium'>
+                                <td className='text-primary font-bold'>
                                     {contest?.status}
                                 </td>
+                                <td className={contest.contestResult === 'Declared Winner' ? contest?.winnerEmail === user?.email? "text-primary font-bold": "text-red-400 font-bold": "text-green-400 font-bold"}>
+                                    {contest.contestResult === 'Declared Winner' ? contest?.winnerEmail === user?.email? "You Win": "Loss": "Not Declare"}
+                                </td>
                                 <td className="font-bold text-green-400 my-2">
-                                    <button onClick={() => openModal(contest)} className="btn btn-sm bg-primary/70 hover:bg-secondary/70 border-none">Submit Task</button>
+                                    <button disabled={contest?.contestResult === 'Declared Winner'} onClick={() => openModal(contest)} className="btn btn-sm bg-primary/70 hover:bg-secondary/70 border-none">Submit Task</button>
                                 </td>
                             </tr>)
                         }

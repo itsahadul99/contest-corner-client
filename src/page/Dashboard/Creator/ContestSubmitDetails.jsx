@@ -3,13 +3,10 @@ import SectionTitle from "../../../components/shared/SectionTitle";
 import { useMutation } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
-import { useState } from "react";
 
 const ContestSubmitDetails = () => {
     const data = useLoaderData()
     const {id} = useParams()
-    const [winnerName, setWinnerName] = useState(null)
-    const [winnerImg, setWinnerImg] = useState(null)
     const axiosSecure = useAxiosSecure()
     const {mutateAsync} = useMutation({
         mutationKey: ['declareWin'],
@@ -21,11 +18,11 @@ const ContestSubmitDetails = () => {
             toast.success("Successfully declare winner for this contest")
         }
     })
-    const handleDeclareWin = async email => {
+    const handleDeclareWin = async (email, name, image) => {
         const updateData = {
             winnerEmail: email,
-            winnerName: winnerName,
-            winnerImg: winnerImg,
+            winnerName: name,
+            winnerImg: image,
             contestResult: 'Declared Winner',
             contestId: id,
         }
@@ -48,11 +45,12 @@ const ContestSubmitDetails = () => {
                         <h1 className="text-sm md:text-lg font-semibold">Participant Email: {item?.participantEmail}</h1>
                         <p className="text-xs md:text-lg font-medium"><span className="font-semibold">Participant Ans:</span> {item?.answer.slice(0, 300)}</p>
                         <div className="flex justify-end">
-                            <button disabled={item?.contestResult === 'Declared Winner'} onClick={() => {
-                                handleDeclareWin(item?.participantEmail)
-                                setWinnerName(item?.participantName)
-                                setWinnerImg(item?.participantImg)
-                            }} className="btn btn-sm bg-primary/80 hover:bg-secondary/70">{item?.contestResult === 'Declared Winner'? 'Un Successful': 'Declare win'}</button>
+                            <button 
+                            disabled={item?.contestResult === 'Declared Winner'} 
+                            onClick={() => {
+                                handleDeclareWin(item?.participantEmail, item?.participantName,item?.participantImg )
+                            }} 
+                            className="btn btn-sm bg-primary/80 hover:bg-secondary/70">{item?.contestResult === 'Declared Winner'? 'Un Successful': 'Declare win'}</button>
                         </div>
                     </div>)
                 }
