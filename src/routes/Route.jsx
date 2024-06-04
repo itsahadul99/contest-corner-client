@@ -13,13 +13,14 @@ import ManageUsers from "../page/Dashboard/Admin/ManageUsers";
 import ManageContests from "../page/Dashboard/Admin/ManageContests";
 import MyCreatorContest from "../page/Dashboard/Creator/MyCreatorContest";
 import AddContest from "../page/Dashboard/Creator/AddContest";
-import MySubmittedPage from "../page/Dashboard/Creator/MySubmittedPage";
 import Profile from "../page/Dashboard/NormalUser/Profile";
 import Payment from "../page/Payment/Payment";
 import MyParticipantContest from "../page/Dashboard/NormalUser/MyParticipantContest";
 import EditContest from "../page/Dashboard/Creator/EditContest";
 import AdminRoute from "./AdminRoute";
 import CreatorRoute from "./CreatorRoute";
+import ContestSubmitted from "../page/Dashboard/Creator/ContestSubmitted";
+import ContestSubmitDetails from "../page/Dashboard/Creator/ContestSubmitDetails";
 
 const router = createBrowserRouter([
     {
@@ -68,12 +69,17 @@ const router = createBrowserRouter([
             },
             {
                 path: 'contestSubmitted',
-                element: <CreatorRoute><MySubmittedPage /></CreatorRoute>
+                element: <CreatorRoute><ContestSubmitted /></CreatorRoute>
             },
             {
                 path: 'editContest/:id',
                 loader: ({ params }) => fetch(`${import.meta.env.VITE_API_URL}/editContest/${params.id}`),
-                element: <EditContest />
+                element: <CreatorRoute><EditContest /></CreatorRoute>
+            },
+            {
+                path: 'contestSubmitDetails',
+                // loader: ({ params }) => fetch(`${import.meta.env.VITE_API_URL}/editContest/${params.id}`),
+                element: <CreatorRoute><ContestSubmitDetails /></CreatorRoute>
             },
             // Admin path
             {

@@ -22,6 +22,7 @@ const TaskSubmitModal = ({setModalOpen, isOpen, contest}) => {
             contestId: contest?._id,
             contestName: contest?.contestName,
             prize: contest?.prize,
+            participantName: user?.displayName,
         }
         const {data} = await axiosSecure.post('/submittedTask', submittedData)
         if(data.insertedId){
