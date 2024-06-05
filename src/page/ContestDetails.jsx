@@ -8,6 +8,7 @@ const ContestDetails = () => {
     const contest = useLoaderData()
     const { img, contestName, participation, prize, description, deadline, entryFee, taskSubmited, _id, contestResult, winnerName, winnerImg } = contest;
     const [, status, ,] = useRole()
+    const startDate = new Date(deadline).toISOString();
     const handleRegistration = () => {
         if (status === 'blocked') {
             return toast.error("You are blocked by Admin & and can't registration")
@@ -16,8 +17,6 @@ const ContestDetails = () => {
             toast.error("This contest winner is already declared. You can't join this!!")
         }
     }
-    console.log(contestResult);
-    const startDate = new Date(deadline).toISOString();
     return (
         <div className="min-h-[calc(100vh-380px)]">
             <HelmetTitle title="Details Page" />

@@ -7,6 +7,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import ContestCard from "../../components/ContestCard";
 import BestContestCreator from "./BestContestCreator";
+import LatestWinner from "./LatestWinner";
 
 const Home = () => {
     const axiosCommon = useAxiosCommon()
@@ -35,7 +36,8 @@ const Home = () => {
                 }
             </div>
             <PopularContest />
-            <BestContestCreator />
+            {/* <BestContestCreator /> */}
+            <LatestWinner />
         </>
     );
 };
