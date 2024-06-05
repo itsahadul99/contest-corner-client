@@ -36,8 +36,8 @@ const Home = () => {
                 }
             </div>
             <PopularContest />
-            {/* <BestContestCreator /> */}
             <LatestWinner />
+            <BestContestCreator />
         </>
     );
 };
