@@ -46,7 +46,6 @@ const AllContest = () => {
     const handleTab = (value) => {
         setTabValue(value)
     }
-    console.log(itemPerPage, currentPage);
     if (isLoading) return <Spinner />
     return (
         <div className="min-h-[calc(100vh-380px)]">

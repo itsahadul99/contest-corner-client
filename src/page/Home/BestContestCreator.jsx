@@ -2,6 +2,14 @@ import { useQuery } from "@tanstack/react-query";
 import Container from "../../components/shared/Container";
 import SectionTitle from "../../components/shared/SectionTitle";
 import useAxiosCommon from "../../hooks/useAxiosCommon";
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+
+// import required modules
+import { Autoplay } from 'swiper/modules';
 const BestContestCreator = () => {
     const axiosCommon = useAxiosCommon()
     const { data: topCreators = [] } = useQuery({
@@ -15,21 +23,55 @@ const BestContestCreator = () => {
         <div>
             <SectionTitle title="Best Contest Creators" subTitle={`Top #${topCreators.length} Creators`} />
             <Container>
-                <div className="flex flex-col md:flex-row justify-center items-center gap-5 md:gap-8">
+                <Swiper
+                    slidesPerView={1}
+                    spaceBetween={20}
+                    pagination={{
+                        clickable: true,
+                    }}
+                    breakpoints={{
+                        640: {
+                            slidesPerView: 1,
+                            spaceBetween: 20,
+                        },
+                        768: {
+                            slidesPerView: 2,
+                            spaceBetween: 40,
+                        },
+                        1024: {
+                            slidesPerView: 3,
+                            spaceBetween: 50,
+                        },
+                    }}
+                    modules={[Autoplay]}
+                    loop={true}
+                    autoplay={{
+                        delay: 2500,
+                        disableOnInteraction: false,
+                      }}
+                    className="mySwiper"
+                >
                     {
-                        topCreators.map(creator => <div key={creator._id} className="flex flex-col justify-center items-center border p-5 lg:p-10 rounded-lg shadow-md bg-primary/5 hover:skew-x-3 cursor-pointer hover:scale-105 duration-500">
-                            <div className="rounded-xl">
-                                <img className="md:h-[130px] object-contain rounded-full" src={creator.creatorImg} alt="" />
+                        topCreators.map(creator => <SwiperSlide key={creator._id}>
+                            <div key={creator._id}>
+                                <div
+                                    style={{ backgroundImage: `url(${creator?.creatorImg})` }}
+                                    className=" bg-cover object-contain hover:-rotate-2 bg-no-repeat duration-500 relative grid h-[20rem] w-full max-w-[20rem] flex-col items-end justify-center overflow-hidden rounded-xl bg-white bg-clip-border text-center text-gray-700">
+                                    <div className={`absolute inset-0 m-0 h-full w-full overflow-hidden rounded-none bg-transparent  bg-cover bg-clip-border bg-center text-gray-700 shadow-none border`}>
+                                    </div>
+                                </div>
+                                <h1 className="text-center text-lg md:text-2xl font-semibold mt-4">
+                                    {creator?.creatorName}
+                                </h1>
+                                <p className="text-center text-sm md:text-lg opacity-65">
+                                    Contest Participant Count {creator?.participation}
+                                </p>
                             </div>
-                            <div className="text-center">
-                                <h1 className="text-lg my-2 md:text-xl font-bold">{creator?.creatorName}</h1>
-                                <p>Participant Count: {creator?.participation}</p>
-                            </div>
-                        </div>)
+                        </SwiperSlide>)
                     }
-                </div>
-            </Container>
-        </div>
+                </Swiper>
+            </Container >
+        </div >
     );
 };
 

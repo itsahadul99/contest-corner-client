@@ -50,6 +50,14 @@ const Profile = () => {
             return data;
         }
     })
+    const { data: userStatistics = {} } = useQuery({
+        queryKey: ['winRate', user?.email],
+        queryFn: async () => {
+            const { data } = await axiosSecure.get(`/userWin/${user?.email}`)
+            return data;
+        }
+    })
+    const winRate = (userStatistics.completedCount) * 100 / (userStatistics.attemptedCount)
     return (
         <div className='flex flex-col justify-center items-center md:h-[calc(100vh-100px)]'>
             <Helmet>
@@ -61,12 +69,12 @@ const Profile = () => {
                     src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWumRdY_Qm3mPwyVFyyunAlNqGI721bc3Ftw&s'
                     className='w-full mb-4 rounded-t-lg h-36 bg-cover'
                 />
-                <div className='flex flex-col items-center justify-center p-4 -mt-16 text-xs md:text-sm'>
+                <div className='flex flex-col items-center justify-center p-4 -mt-20 text-xs md:text-sm'>
                     <a href='#' className='relative block'>
                         <img
                             alt='profile'
                             src={user?.photoURL}
-                            className='mx-auto object-cover rounded-full h-24 w-24  border-2 border-white '
+                            className='mx-auto object-cover rounded-full h-28 w-28  border-2 border-white '
                         />
                     </a>
                     <p className='font-bold text-black '>
@@ -76,7 +84,7 @@ const Profile = () => {
                         Email: {user?.email}
                     </p>
                     <p className='font-bold text-black '>
-                        Address: {userDb?.address ? userDb?.address: 'Not Provide'}
+                        Address: {userDb?.address ? userDb?.address : 'Not Provide'}
                     </p>
                     <div>
                         {/* You can open the modal using document.getElementById('ID').showModal() method */}
@@ -84,7 +92,7 @@ const Profile = () => {
                         <dialog id="my_modal_3" className="modal">
                             <div className="modal-box">
                                 <form method="dialog">
-                                    <button  className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                    <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                                 </form>
                                 <form onSubmit={handleUpdate} className='mx-5 space-y-3'>
                                     <div className='mt-4'>
@@ -157,8 +165,16 @@ const Profile = () => {
                 </div>
                 <div className='my-5 px-5'>
                     <h1 className='text-center text-lg md:text-2xl font-bold my-3 lg:my-5'>Your Current Activity Status</h1>
-                    <div className='text-center text-sm md:text-lg'>
-                        <h1>this data will be adding sooon</h1>
+                    <hr />
+                    <div className='text-sm md:text-lg flex justify-center items-center my-5'>
+                        <div className='border-r-2 flex-1 text-start ml-2 md:ml-5 mt-5 text-lg md:text-xl font-semibold space-y-2'>
+                            <h1> Registration Contest: {userStatistics.attemptedCount} Times</h1>
+                            <h1> Win the Contest: {userStatistics.completedCount} Times</h1>
+                        </div>
+                        <div className='text-center flex-1 mt-5'>
+                            <div className={`radial-progress ${winRate > 50? 'text-primary': 'text-red-400'}`} style={{ "--value": winRate > 0? winRate.toFixed(2): 0 }} role="progressbar">{winRate > 0? winRate.toFixed(2): 0}%</div>
+                            <p className='text-xs md:text-sm italic font-semibold'> Win rate: {winRate > 0? winRate.toFixed(2): 0}%</p>
+                        </div>
                     </div>
                 </div>
             </div>
