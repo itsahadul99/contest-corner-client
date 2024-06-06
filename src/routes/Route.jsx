@@ -21,6 +21,7 @@ import AdminRoute from "./AdminRoute";
 import CreatorRoute from "./CreatorRoute";
 import ContestSubmitted from "../page/Dashboard/Creator/ContestSubmitted";
 import ContestSubmitDetails from "../page/Dashboard/Creator/ContestSubmitDetails";
+import MyWinningContext from "../page/Dashboard/NormalUser/MyWinningContext";
 
 const router = createBrowserRouter([
     {
@@ -99,6 +100,10 @@ const router = createBrowserRouter([
                 path: 'myContest',
                 element: <MyParticipantContest />
             },
+            {
+                path: 'myWinningContest',
+                element: <MyWinningContext />
+            }
 
         ]
     },
