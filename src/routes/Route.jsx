@@ -22,6 +22,7 @@ import CreatorRoute from "./CreatorRoute";
 import ContestSubmitted from "../page/Dashboard/Creator/ContestSubmitted";
 import ContestSubmitDetails from "../page/Dashboard/Creator/ContestSubmitDetails";
 import MyWinningContext from "../page/Dashboard/NormalUser/MyWinningContext";
+import LeaderBoard from "../page/LeaderBoard";
 
 const router = createBrowserRouter([
     {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
                 path: '/payment/:id',
                 loader: ({ params }) => fetch(`${import.meta.env.VITE_API_URL}/payment/${params.id}`),
                 element: <Payment />
+            },
+            {
+                path: '/leaderBoard',
+                element: <LeaderBoard />
             }
         ],
     },

@@ -23,6 +23,14 @@ const Navbar = () => {
             }>
                 All Contest</NavLink>
         </li>
+        <li>
+            <NavLink to='/leaderBoard' className={({ isActive }) =>
+                isActive
+                    ? "text-primary pb-1 border-b-0 lg:border-b-2 border-secondary font-bold"
+                    : "font-bold hover:text-secondary"
+            }>
+                Leaderboard</NavLink>
+        </li>
 
     </>
     const [theme, setTheme] = useState('light')
