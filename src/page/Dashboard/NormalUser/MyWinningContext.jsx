@@ -11,7 +11,7 @@ const MyWinningContext = () => {
     const { data: winningContests = [] } = useQuery({
         queryKey: ['winningContest', user?.email],
         queryFn: async () => {
-            const { data } = await axiosSecure.get(`/winningContest/${user?.email}`)
+            const { data } = await axiosSecure.get(`/winningContest?name=${user?.displayName}`)
             return data;
         }
     })

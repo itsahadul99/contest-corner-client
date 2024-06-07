@@ -23,6 +23,7 @@ import ContestSubmitted from "../page/Dashboard/Creator/ContestSubmitted";
 import ContestSubmitDetails from "../page/Dashboard/Creator/ContestSubmitDetails";
 import MyWinningContext from "../page/Dashboard/NormalUser/MyWinningContext";
 import LeaderBoard from "../page/LeaderBoard";
+import Preparation from "../page/Preparation/Preparation";
 
 const router = createBrowserRouter([
     {
@@ -51,7 +52,11 @@ const router = createBrowserRouter([
             },
             {
                 path: '/leaderBoard',
-                element: <LeaderBoard />
+                element: <PrivateRoute><LeaderBoard /></PrivateRoute>
+            },
+            {
+                path: '/preparation',
+                element: <Preparation />
             }
         ],
     },
