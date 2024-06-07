@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import ContestCard from "../../components/ContestCard";
 import BestContestCreator from "./BestContestCreator";
 import LatestWinner from "./LatestWinner";
+import HowItWorks from "./HowItWork";
 
 const Home = () => {
     const axiosCommon = useAxiosCommon()
@@ -38,6 +39,7 @@ const Home = () => {
             <PopularContest />
             <LatestWinner />
             <BestContestCreator />
+            <HowItWorks />
         </>
     );
 };
