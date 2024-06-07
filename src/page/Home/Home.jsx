@@ -9,6 +9,7 @@ import ContestCard from "../../components/ContestCard";
 import BestContestCreator from "./BestContestCreator";
 import LatestWinner from "./LatestWinner";
 import HowItWorks from "./HowItWork";
+import NewsLetter from "./NewsLetter";
 
 const Home = () => {
     const axiosCommon = useAxiosCommon()
@@ -40,6 +41,7 @@ const Home = () => {
             <LatestWinner />
             <BestContestCreator />
             <HowItWorks />
+            <NewsLetter />
         </>
     );
 };
