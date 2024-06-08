@@ -1,11 +1,12 @@
 
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import toast from "react-hot-toast";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { imageUpload } from "../../utils";
 import { FaSpinner } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
+import { LoadCanvasTemplate, loadCaptchaEnginge, validateCaptcha } from "react-simple-captcha";
 const SignUp = () => {
     const {
         register,
@@ -18,8 +19,23 @@ const SignUp = () => {
     const [imagePreview, setImagePreview] = useState()
     const [imageText, setImageText] = useState('Upload Image')
     const [isLoading, setIsLoading] = useState(false)
+    const [disabled, setDisabled] = useState(true)
+    const captchaRef = useRef(null)
     const navigate = useNavigate()
     const location = useLocation()
+    useEffect(() => {
+        loadCaptchaEnginge(6);
+    }, [])
+    const handleCaptchaCode = () => {
+        setDisabled(true)
+        const user_captcha_value = captchaRef.current.value;
+        if (validateCaptcha(user_captcha_value)) {
+            setDisabled(false)
+        }
+        else {
+            setDisabled(true)
+        }
+    }
     const onSubmit = async (data) => {
         setIsLoading(true)
         try {
@@ -27,7 +43,7 @@ const SignUp = () => {
             createUser(data.email, data.password)
                 .then(() => {
                     setIsLoading(false)
-                    updateUserProfile(name, img_url)
+                    updateUserProfile(data.name, img_url)
                         .then(() => {
                             toast.success("Successfully register !!")
                             navigate(location?.state ? location?.state : '/')
@@ -49,9 +65,9 @@ const SignUp = () => {
                 toast.error(err?.message);
             })
     }
-    const handleImageChange = image => {
-        setImagePreview(URL.createObjectURL(image))
-        setImageText(image.name)
+    const handleImageChange = e => {
+        setImagePreview(URL.createObjectURL(e.target.files[0]))
+        setImageText(e.target.files[0].name)
     }
     return (
         <div className='my-5 md:my-8 lg:my-10 flex justify-center items-center min-h-[calc(100vh-100px)]'>
@@ -60,7 +76,7 @@ const SignUp = () => {
                     <div className='flex justify-center mx-auto'>
                         <Link to='/' className="cursor-pointer text-lg md:text-2xl lg:text-3xl font-bold text-primary">Contest<span className="text-secondary">Corner</span></Link>
                     </div>
-                    <p className='mt-3 text-xl text-center text-gray-600 '>
+                    <p className='mt-1 text-lg text-center text-gray-600 '>
                         Get Your Free Account Now.
                     </p>
                     <div onClick={handleGoogleSignIn} className='flex cursor-pointer items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg   hover:bg-gray-50 '>
@@ -121,10 +137,9 @@ const SignUp = () => {
                                     <label>
                                         <input
                                             disabled={loading}
-                                            onChange={e => handleImageChange(e.target.files[0])}
                                             className='disabled:cursor-not-allowed text-sm cursor-pointer w-36 hidden'
                                             type='file'
-                                            {...register('image', { required: true })}
+                                            {...register('image', { required: true , onChange: handleImageChange})}
                                             id='image'
                                             accept='image/*'
                                             hidden
@@ -175,7 +190,7 @@ const SignUp = () => {
                                         required: true,
                                         minLength: 6,
                                         maxLength: 20,
-                                        pattern: /(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/
+                                        pattern: /(?=.*?[A-Z])(?=.*?[a-z])/
                                     })}
                                 className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
                                 type='password'
@@ -191,12 +206,30 @@ const SignUp = () => {
                                 <p className="mt-2 text-red-600">Password length max 20 characters</p>
                             )}
                             {errors.password?.type === "pattern" && (
-                                <p className="mt-2 text-red-600">Password must be one lowercase, one uppercase and one number</p>
+                                <p className="mt-2 text-red-600">Password must be one lowercase, one uppercase</p>
                             )}
+                        </div>
+                        <div className='mt-4'>
+                            <div className='flex justify-between'>
+                                <label
+                                    className='block mb-2 text-sm font-medium text-gray-600 '
+                                >
+                                    <LoadCanvasTemplate />
+                                </label>
+                            </div>
+
+                            <input
+                                ref={captchaRef}
+                                className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
+                                type='text'
+                                placeholder="Write Captcha"
+                                required
+                            />
+                            <button onClick={handleCaptchaCode} className="btn btn-outline btn-xs mt-4">Validate Captcha</button>
                         </div>
                         <div className='mt-6'>
                             <button
-                                disabled={isLoading}
+                                disabled={isLoading || disabled}
                                 type='submit'
                                 className='disabled:cursor-not-allowed flex justify-center items-center gap-2.5 w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50'
                             >
