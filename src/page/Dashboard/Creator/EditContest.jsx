@@ -45,7 +45,6 @@ const EditContest = () => {
 
         }
         const { data } = await axiosSecure.patch(`/contests/update/${contest?._id}`, contestData)
-        console.log(data);
         if (data.modifiedCount > 0) {
             setLoading(false)
             navigate('/dashboard/myCreated')

@@ -30,7 +30,7 @@ const ContestSubmitDetails = () => {
         try {
             await mutateAsync(updateData)
         } catch (error) {
-            console.log(error);
+            toast.error(error);
         }
     }
     return (

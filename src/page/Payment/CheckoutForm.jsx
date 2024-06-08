@@ -77,7 +77,6 @@ const CheckoutForm = ({ contest }) => {
                     status: 'Success'
                 }
                 const {data} = await axiosSecure.post('/payments', payment)
-                console.log(data);
                 if (data?.insertedId) {
                     setLoading(false)
                     setError('')

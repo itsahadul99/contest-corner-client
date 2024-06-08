@@ -16,7 +16,6 @@ const MyWinningContext = () => {
             return data;
         }
     })
-    console.log(winningContests);
     return (
         <div className="text-black">
             <DashboardHelmet title="My Winning Contest" />
