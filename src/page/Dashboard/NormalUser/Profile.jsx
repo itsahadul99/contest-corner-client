@@ -1,5 +1,3 @@
-
-import { Helmet } from 'react-helmet-async'
 import useAuth from '../../../hooks/useAuth'
 import { FaSpinner } from 'react-icons/fa'
 import toast from 'react-hot-toast'
@@ -7,6 +5,7 @@ import { imageUpload } from '../../../utils'
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import useAxiosSecure from '../../../hooks/useAxiosSecure'
+import DashboardHelmet from '../../../components/DashboardHelmet'
 
 const Profile = () => {
     const { user, updateUserProfile, isLoading } = useAuth()
@@ -60,9 +59,7 @@ const Profile = () => {
     const winRate = (userStatistics.completedCount) * 100 / (userStatistics.attemptedCount)
     return (
         <div className='flex flex-col justify-center items-center md:h-[calc(100vh-100px)]'>
-            <Helmet>
-                <title>Profile</title>
-            </Helmet>
+           <DashboardHelmet title="Profile" />
             <div className='bg-white shadow-lg rounded-2xl md:w-3/5 h-full'>
                 <img
                     alt='profile'

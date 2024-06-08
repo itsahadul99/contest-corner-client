@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import DropdownMenu from "../../../components/DropdownMenu";
 import toast from "react-hot-toast";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import DashboardHelmet from "../../../components/DashboardHelmet";
 const ManageUsers = () => {
     const axiosSecure = useAxiosSecure()
     const { data: users = [], refetch } = useQuery({
@@ -20,6 +21,7 @@ const ManageUsers = () => {
     }
     return (
         <div>
+            <DashboardHelmet title="Manage Users" />
             <div className="overflow-x-auto overflow-y-auto p-8 shadow-sm mt-12 bg-gray-100 rounded-md border">
                 <div className="text-[#151515] font-bold my-5 text-2xl uppercase ">
                     <h1>Total User: {users.length}</h1>

@@ -5,24 +5,26 @@ import { useState } from "react";
 import { imageUpload } from "../../utils";
 import { FaSpinner } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
+import { useForm } from "react-hook-form";
 const SignUp = () => {
+    const {
+        register,
+        handleSubmit,
+        // eslint-disable-next-line no-unused-vars
+        watch,
+        formState: { errors },
+    } = useForm()
     const { createUser, signInWithGoogle, updateUserProfile, loading } = useAuth();
     const [imagePreview, setImagePreview] = useState()
     const [imageText, setImageText] = useState('Upload Image')
     const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate()
     const location = useLocation()
-    const handleRegister = async e => {
+    const onSubmit = async (data) => {
         setIsLoading(true)
-        e.preventDefault()
-        const form = e.target;
-        const name = form.name.value;
-        const email = form.email.value;
-        const password = form.password.value;
-        const image = form.image.files[0];
         try {
-            const img_url = await imageUpload(image)
-            createUser(email, password)
+            const img_url = await imageUpload(data.image[0])
+            createUser(data.email, data.password)
                 .then(() => {
                     setIsLoading(false)
                     updateUserProfile(name, img_url)
@@ -56,13 +58,11 @@ const SignUp = () => {
             <div className='flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg lg:max-w-4xl '>
                 <div className='w-full px-6 md:px-8 lg:w-1/2'>
                     <div className='flex justify-center mx-auto'>
-                        <Link to='/' className="cursor-pointer text-lg md:text-2xl lg:text-3xl font-bold">Contest<span className="text-primary">Corner</span></Link>
+                        <Link to='/' className="cursor-pointer text-lg md:text-2xl lg:text-3xl font-bold text-primary">Contest<span className="text-secondary">Corner</span></Link>
                     </div>
-
                     <p className='mt-3 text-xl text-center text-gray-600 '>
                         Get Your Free Account Now.
                     </p>
-
                     <div onClick={handleGoogleSignIn} className='flex cursor-pointer items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg   hover:bg-gray-50 '>
                         <div className='px-4 py-2'>
                             <svg className='w-6 h-6' viewBox='0 0 40 40'>
@@ -99,7 +99,7 @@ const SignUp = () => {
 
                         <span className='w-1/5 border-b dark:border-gray-400 lg:w-1/4'></span>
                     </div>
-                    <form onSubmit={handleRegister}>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                         <div className='mt-4'>
                             <label
                                 className='block mb-2 text-sm font-medium text-gray-600 '
@@ -110,7 +110,7 @@ const SignUp = () => {
                             <input
                                 id='name'
                                 autoComplete='name'
-                                name='name'
+                                {...register('name', { required: true })}
                                 className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
                                 type='text'
                             />
@@ -124,7 +124,7 @@ const SignUp = () => {
                                             onChange={e => handleImageChange(e.target.files[0])}
                                             className='disabled:cursor-not-allowed text-sm cursor-pointer w-36 hidden'
                                             type='file'
-                                            name='image'
+                                            {...register('image', { required: true })}
                                             id='image'
                                             accept='image/*'
                                             hidden
@@ -150,7 +150,7 @@ const SignUp = () => {
                             <input
                                 id='LoggingEmailAddress'
                                 autoComplete='email'
-                                name='email'
+                                {...register('email', { required: true })}
                                 className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
                                 type='email'
                                 required
@@ -170,11 +170,29 @@ const SignUp = () => {
                             <input
                                 id='loggingPassword'
                                 autoComplete='current-password'
-                                name='password'
+                                {...register('password',
+                                    {
+                                        required: true,
+                                        minLength: 6,
+                                        maxLength: 20,
+                                        pattern: /(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/
+                                    })}
                                 className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
                                 type='password'
                                 required
                             />
+                            {errors.password?.type === "required" && (
+                                <p className="mt-2 text-red-600">Password is required</p>
+                            )}
+                            {errors.password?.type === "minLength" && (
+                                <p className="mt-2 text-red-600">Password must be at least 6 characters</p>
+                            )}
+                            {errors.password?.type === "maxLength" && (
+                                <p className="mt-2 text-red-600">Password length max 20 characters</p>
+                            )}
+                            {errors.password?.type === "pattern" && (
+                                <p className="mt-2 text-red-600">Password must be one lowercase, one uppercase and one number</p>
+                            )}
                         </div>
                         <div className='mt-6'>
                             <button

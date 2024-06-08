@@ -7,6 +7,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useState } from "react";
 import { imageUpload } from "../../../utils";
 import Swal from "sweetalert2";
+import DashboardHelmet from "../../../components/DashboardHelmet";
 const EditContest = () => {
     const contest = useLoaderData();
     const [loading, setLoading] = useState(false)
@@ -64,6 +65,7 @@ const EditContest = () => {
     }
     return (
         <div className='w-full min-h-[calc(100vh-40px)] flex flex-col justify-center items-center text-gray-800 rounded-xl bg-gray-50'>
+            <DashboardHelmet title="Edit Contest" />
             <form 
             onSubmit={handleSubmit}
             >

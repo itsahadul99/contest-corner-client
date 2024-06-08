@@ -4,6 +4,7 @@ import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useState } from "react";
 import TaskSubmitModal from "../../../components/TaskSubmitModal";
+import DashboardHelmet from "../../../components/DashboardHelmet";
 
 const MyParticipantContest = () => {
     const { user } = useAuth();
@@ -23,6 +24,7 @@ const MyParticipantContest = () => {
     }
     return (
         <div className="min-h-[calc(100vh-380px)]">
+            <DashboardHelmet title="My Participant Contest" />
             <SectionTitle title="My Participant Contest" subTitle="Ready for next" />
             <div className="overflow-x-auto overflow-y-auto p-8 shadow-sm bg-gray-100 rounded-md border">
                 <div className="text-[#151515] font-bold my-5 text-2xl uppercase ">

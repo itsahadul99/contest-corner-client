@@ -15,6 +15,7 @@ const CheckoutForm = ({ contest }) => {
     const [clientSecret, setClientSecret] = useState('')
     const [error , setError] = useState("")
     const {user} = useAuth()
+    const [loading, setLoading] = useState(false)
     useEffect(() => {
         if (price > 0) {
             axiosSecure.post('/create-payment-intent', { price })
@@ -25,36 +26,28 @@ const CheckoutForm = ({ contest }) => {
 
     }, [axiosSecure, price])
     const handleSubmit = async (event) => {
-        // Block native form submission.
+        setLoading(true)
         event.preventDefault();
-
         if (!stripe || !elements) {
-            // Stripe.js has not loaded yet. Make sure to disable
-            // form submission until Stripe.js has loaded.
             return;
         }
-
-        // Get a reference to a mounted CardElement. Elements knows how
-        // to find your CardElement because there can only ever be one of
-        // each type of element.
         const card = elements.getElement(CardElement);
 
         if (card == null) {
             return;
         }
-
-        // Use your card Element with other Stripe.js APIs
+        // eslint-disable-next-line no-unused-vars
         const { error, paymentMethod } = await stripe.createPaymentMethod({
             type: 'card',
             card,
         });
 
         if (error) {
-            console.log('[error]', error);
             setError(error)
+            setLoading(false)
         } else {
-            console.log('[PaymentMethod]', paymentMethod);
             setError("")
+            setLoading(false)
         }
         // confirm payment
         const {paymentIntent, error: confirmPaymentError} = await stripe.confirmCardPayment(clientSecret, {
@@ -67,7 +60,8 @@ const CheckoutForm = ({ contest }) => {
             }
         })
         if(confirmPaymentError){
-            console.log(confirmPaymentError);
+            setError(confirmPaymentError)
+            setError(false)
         }
         else{
             if(paymentIntent.status === 'succeeded'){
@@ -85,6 +79,8 @@ const CheckoutForm = ({ contest }) => {
                 const {data} = await axiosSecure.post('/payments', payment)
                 console.log(data);
                 if (data?.insertedId) {
+                    setLoading(false)
+                    setError('')
                     navigate('/dashboard/myContest')
                     toast.success('Successfully registration complete')
                 }
@@ -111,7 +107,7 @@ const CheckoutForm = ({ contest }) => {
                     },
                 }}
             />
-            <button type="submit" disabled={!stripe} className=" text-sm md:text-lg btn bg-primary hover:bg-secondary">
+            <button type="submit" disabled={!stripe || !elements || !clientSecret || loading} className=" text-sm md:text-lg btn bg-primary hover:bg-secondary disabled:cursor-not-allowed">
                 Pay
             </button>
             {

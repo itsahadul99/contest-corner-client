@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useRole from "../../../hooks/useRole";
+import DashboardHelmet from "../../../components/DashboardHelmet";
 
 const AddContest = () => {
     const [loading, setLoading] = useState(false)
@@ -69,6 +70,7 @@ const AddContest = () => {
     }
     return (
         <div className='w-full min-h-[calc(100vh-40px)] flex flex-col justify-center items-center text-gray-800 rounded-xl bg-gray-50'>
+            <DashboardHelmet title="Add Contest" />
             <form onSubmit={handleSubmit}>
                 <div className='grid grid-cols-1 lg:grid-cols-2 gap-10'>
                     <div className='space-y-6'>

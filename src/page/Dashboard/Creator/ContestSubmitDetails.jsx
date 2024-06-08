@@ -3,6 +3,7 @@ import SectionTitle from "../../../components/shared/SectionTitle";
 import { useMutation } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
+import DashboardHelmet from "../../../components/DashboardHelmet";
 
 const ContestSubmitDetails = () => {
     const data = useLoaderData()
@@ -35,6 +36,7 @@ const ContestSubmitDetails = () => {
     return (
         <>
             <SectionTitle title="Submitted Task Answer" subTitle="Make a Winner" />
+            <DashboardHelmet title="Contest Submitted Details Page" />
             <div className="space-y-3 md:space-y-5">
                 {
                     data.map(item => <div

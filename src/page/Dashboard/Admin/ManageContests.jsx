@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import CommentModal from "../../../components/CommentModal";
 import { useState } from "react";
+import DashboardHelmet from "../../../components/DashboardHelmet";
 const ManageContests = () => {
     const [contests, , refetch] = useContests()
     const axiosSecure = useAxiosSecure()
@@ -49,6 +50,7 @@ const ManageContests = () => {
     const [commentId, setCommentId] = useState()
     return (
         <div>
+            <DashboardHelmet title="Manage Contest" />
             <div className="overflow-x-auto overflow-y-auto p-8 shadow-sm bg-gray-100 rounded-md border">
                 <div className="text-[#151515] font-bold my-5 text-2xl uppercase ">
                     <h1>Total Contest:{contests.length}</h1>

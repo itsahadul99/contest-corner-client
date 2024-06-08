@@ -6,6 +6,7 @@ import { CiEdit } from "react-icons/ci";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import SectionTitle from "../../../components/shared/SectionTitle";
+import DashboardHelmet from "../../../components/DashboardHelmet";
 
 const MyCreatorContest = () => {
     const axiosSecure = useAxiosSecure()
@@ -44,6 +45,7 @@ const MyCreatorContest = () => {
     return (
         <div>
             <SectionTitle title="Your Added Contest" subTitle="Watch your" />
+            <DashboardHelmet title="My Create Contest" />
                 <div className="overflow-x-auto overflow-y-auto p-8 shadow-sm  bg-gray-100 rounded-md border">
                     <div className="text-[#151515] font-bold my-5 text-2xl uppercase ">
                         <h1>My Total Contest:{myContests.length}</h1>

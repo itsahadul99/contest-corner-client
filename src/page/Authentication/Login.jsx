@@ -5,18 +5,21 @@ import { Link, useNavigate } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth'
 import toast from 'react-hot-toast'
 import { useState } from 'react'
-
+import { useForm } from 'react-hook-form'
 const Login = () => {
+    const {
+        register,
+        handleSubmit,
+        // eslint-disable-next-line no-unused-vars
+        watch,
+        reset,
+      } = useForm()
     const { signInWithGoogle, signIn } = useAuth()
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
-    const handleSubmit = async e => {
+    const onSubmit = async data => {
         setLoading(true)
-        e.preventDefault()
-        const form = e.target;
-        const email = form.email.value;
-        const password = form.password.value;
-        signIn(email, password)
+        signIn(data.email, data.password)
             .then(() => {
                 toast.success("Successfully log in !!")
                 navigate(location?.state ? location?.state : '/')
@@ -24,7 +27,7 @@ const Login = () => {
             })
             .catch(err => {
                 toast.error(err?.message)
-                form.reset()
+                reset()
                 setLoading(false)
                 return 
             })
@@ -48,7 +51,7 @@ const Login = () => {
                     </p>
                 </div>
                 <form
-                    onSubmit={handleSubmit}
+                    onSubmit={handleSubmit(onSubmit)}
                     noValidate=''
                     action=''
                     className='space-y-6 ng-untouched ng-pristine ng-valid'
@@ -60,7 +63,7 @@ const Login = () => {
                             </label>
                             <input
                                 type='email'
-                                name='email'
+                                {...register('email', {required: true})}
                                 id='email'
                                 required
                                 placeholder='Enter Your Email Here'
@@ -78,7 +81,7 @@ const Login = () => {
                                 type='password'
                                 name='password'
                                 autoComplete='current-password'
-                                id='password'
+                                {...register('password', {required: true})}
                                 required
                                 placeholder='*******'
                                 className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-secondary bg-gray-200 text-gray-900'

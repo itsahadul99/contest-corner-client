@@ -14,7 +14,10 @@ const ContestDetails = () => {
             return toast.error("You are blocked by Admin & and can't registration")
         }
         if (contestResult === "Declared Winner") {
-            toast.error("This contest winner is already declared. You can't join this!!")
+           return toast.error("This contest winner is already declared. You can't join this!!")
+        }
+        if(new Date(deadline) < new Date()) {
+           return toast.error("This contest deadline is over. You can't participant this contest")
         }
     }
     return (

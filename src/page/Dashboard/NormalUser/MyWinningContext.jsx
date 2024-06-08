@@ -4,6 +4,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
 import Container from "../../../components/shared/Container";
 import SectionTitle from "../../../components/shared/SectionTitle";
+import DashboardHelmet from "../../../components/DashboardHelmet";
 
 const MyWinningContext = () => {
     const axiosSecure = useAxiosSecure();
@@ -18,6 +19,7 @@ const MyWinningContext = () => {
     console.log(winningContests);
     return (
         <div className="text-black">
+            <DashboardHelmet title="My Winning Contest" />
             {
                 winningContests.length > 0 && <SectionTitle title="See Your Winner Contest" subTitle="Don't lose hope" />
             }
