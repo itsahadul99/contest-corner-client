@@ -4,6 +4,7 @@ import Container from "../components/shared/Container";
 import useRole from "../hooks/useRole";
 import toast from "react-hot-toast";
 import CountdownTimer from "./Home/CountdownTimer";
+import { Fade, Zoom } from "react-awesome-reveal";
 const ContestDetails = () => {
     const contest = useLoaderData()
     const { img, contestName, participation, prize, description, deadline, entryFee, taskSubmited, _id, contestResult, winnerName, winnerImg } = contest;
@@ -14,10 +15,10 @@ const ContestDetails = () => {
             return toast.error("You are blocked by Admin & and can't registration")
         }
         if (contestResult === "Declared Winner") {
-           return toast.error("This contest winner is already declared. You can't join this!!")
+            return toast.error("This contest winner is already declared. You can't join this!!")
         }
-        if(new Date(deadline) < new Date()) {
-           return toast.error("This contest deadline is over. You can't participant this contest")
+        if (new Date(deadline) < new Date()) {
+            return toast.error("This contest deadline is over. You can't participant this contest")
         }
     }
     return (
@@ -25,9 +26,11 @@ const ContestDetails = () => {
             <HelmetTitle title="Details Page" />
             <Container>
                 <div className="flex flex-col md:flex-row items-center justify-around gap-5 md:gap-8 ">
-                    <div className="bg-base-200 p-5 shadow-md">
-                        <img className="md:h-[300px] rounded-md w-full bg-contain" src={img} alt="" />
-                    </div>
+                    <Fade direction="left">
+                        <div className="bg-base-200 p-5 shadow-md">
+                            <img className="md:h-[300px] rounded-md w-full bg-contain" src={img} alt="" />
+                        </div>
+                    </Fade>
                     <div className=" w-full md:w-1/2 space-y-2 md:space-y-3">
                         <h1 className="text-xl md:text-2xl lg:text-3xl font-bold">{contestName}</h1>
                         <p className="text-sm md:text-lg font-medium">{description}</p>
@@ -44,7 +47,11 @@ const ContestDetails = () => {
                                     contestResult === "Declared Winner" ? <div className="flex flex-col justify-center items-center">
 
                                         {
-                                            winnerImg && <><p className="text-sm italic">Winner</p> <img className="w-28 rounded-sm h-24 lg:w-36 lg:h-28" src={winnerImg} alt="" /></>
+                                            winnerImg && <><p className="text-sm italic">Winner</p>
+                                                <Zoom>
+                                                    <img className="w-28 rounded-sm h-24 lg:w-36 lg:h-28 rounded-lg" src={winnerImg} alt="" />
+                                                </Zoom>
+                                            </>
                                         }
                                         <p className="text-sm mt-2">{winnerName}</p>
                                     </div> : ''

@@ -4,6 +4,7 @@ import Container from "../../components/shared/Container";
 import SectionTitle from "../../components/shared/SectionTitle";
 import useAxiosCommon from "../../hooks/useAxiosCommon";
 import { Link } from "react-router-dom";
+import { Fade } from "react-awesome-reveal";
 
 const LatestWinner = () => {
     const axiosCommon = useAxiosCommon()
@@ -41,9 +42,11 @@ const LatestWinner = () => {
                                 </div>
                                 <p className="text-sm text-gray-500">Join the contest and aim for the top!</p>
                             </div>
-                            <div className="relative">
-                                <img src={contest.winnerImg} className="relative md:h-[600px] sm:h-[500px] h-[300px] w-[500px] bg-gray-400 rounded-b-full object-cover" alt="Winner" />
-                            </div>
+                            <Fade duration={2000}>
+                                <div className="relative">
+                                    <img src={contest.winnerImg} className="relative md:h-[600px] sm:h-[500px] h-[300px] w-[500px] bg-gray-400 rounded-b-full object-cover" alt="Winner" />
+                                </div>
+                            </Fade>
                         </div>
                     ))}
                 </div>

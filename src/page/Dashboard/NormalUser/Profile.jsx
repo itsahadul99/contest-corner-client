@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import useAxiosSecure from '../../../hooks/useAxiosSecure'
 import DashboardHelmet from '../../../components/DashboardHelmet'
+import { Fade } from 'react-awesome-reveal'
 
 const Profile = () => {
     const { user, updateUserProfile, isLoading } = useAuth()
@@ -59,7 +60,7 @@ const Profile = () => {
     const winRate = (userStatistics.completedCount) * 100 / (userStatistics.attemptedCount)
     return (
         <div className='flex flex-col justify-center items-center md:h-[calc(100vh-100px)]'>
-           <DashboardHelmet title="Profile" />
+            <DashboardHelmet title="Profile" />
             <div className='bg-white shadow-lg rounded-2xl md:w-3/5 h-full'>
                 <img
                     alt='profile'
@@ -163,16 +164,18 @@ const Profile = () => {
                 <div className='my-5 px-5'>
                     <h1 className='text-center text-lg md:text-2xl font-bold my-3 lg:my-5'>Your Current Activity Status</h1>
                     <hr />
-                    <div className='text-sm md:text-lg flex justify-center items-center my-5'>
-                        <div className='border-r-2 flex-1 text-start ml-2 md:ml-5 mt-5 text-lg md:text-xl font-semibold space-y-2'>
-                            <h1> Registration Contest: {userStatistics.attemptedCount} Times</h1>
-                            <h1> Win the Contest: {userStatistics.completedCount} Times</h1>
+                    <Fade duration={1200}>
+                        <div className='text-sm md:text-lg flex justify-center items-center my-5'>
+                            <div className='border-r-2 flex-1 text-start ml-2 md:ml-5 mt-5 text-lg md:text-xl font-semibold space-y-2'>
+                                <h1> Registration Contest: {userStatistics.attemptedCount} Times</h1>
+                                <h1> Win the Contest: {userStatistics.completedCount} Times</h1>
+                            </div>
+                            <div className='text-center flex-1 mt-5'>
+                                <div className={`radial-progress ${winRate > 50 ? 'text-primary' : 'text-red-400'}`} style={{ "--value": winRate > 0 ? winRate.toFixed(2) : 0 }} role="progressbar">{winRate > 0 ? winRate.toFixed(2) : 0}%</div>
+                                <p className='text-xs md:text-sm italic font-semibold'> Win rate: {winRate > 0 ? winRate.toFixed(2) : 0}%</p>
+                            </div>
                         </div>
-                        <div className='text-center flex-1 mt-5'>
-                            <div className={`radial-progress ${winRate > 50? 'text-primary': 'text-red-400'}`} style={{ "--value": winRate > 0? winRate.toFixed(2): 0 }} role="progressbar">{winRate > 0? winRate.toFixed(2): 0}%</div>
-                            <p className='text-xs md:text-sm italic font-semibold'> Win rate: {winRate > 0? winRate.toFixed(2): 0}%</p>
-                        </div>
-                    </div>
+                    </Fade>
                 </div>
             </div>
         </div>
