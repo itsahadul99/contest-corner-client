@@ -16,7 +16,7 @@ Contest Corner is a user-friendly contest participant website where users can cr
   - **Creator:** Can create contests, review submissions, and declare winners.
   - **Admin:** Has control over user and contest management.
 - **Unique Dashboards:** Each role has a unique dashboard tailored to their specific functionalities.
-- **Technology Stack:** The website is built using Tailwind CSS for styling, React for frontend development, Express for backend development, MongoDB for the database, Firebase for additional functionalities, and React Hook Forms for form management.
+- **Technology Stack:** The website is built using Tailwind CSS for styling, React for frontend development, Express for backend development, MongoDB for the database, Firebase for additional functionalities, and React Hook Forms for form management and uses animation, swiper slider etc.
 
 ## Installation
 
