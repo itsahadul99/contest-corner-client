@@ -23,6 +23,7 @@ const ContestDetails = () => {
     }
     return (
         <div className="min-h-[calc(100vh-380px)]">
+            {/* Dynamic title */}
             <HelmetTitle title="Details Page" />
             <Container>
                 <div className="flex flex-col md:flex-row items-center justify-around gap-5 md:gap-8 ">
@@ -49,7 +50,7 @@ const ContestDetails = () => {
                                         {
                                             winnerImg && <><p className="text-sm italic">Winner</p>
                                                 <Zoom>
-                                                    <img className="w-28 rounded-sm h-24 lg:w-36 lg:h-28 rounded-lg" src={winnerImg} alt="" />
+                                                    <img className="w-28 rounded-sm h-24 lg:w-36 lg:h-28" src={winnerImg} alt="" />
                                                 </Zoom>
                                             </>
                                         }

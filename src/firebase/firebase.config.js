@@ -7,5 +7,5 @@ const firebaseConfig = {
   messagingSenderId:import.meta.env.VITE_messagingSenderId,
   appId:import.meta.env.VITE_appId
 };
-
+// create an app and export it
 export const app = initializeApp(firebaseConfig);
