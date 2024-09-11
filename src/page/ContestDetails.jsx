@@ -59,7 +59,7 @@ const ContestDetails = () => {
                                 }
                             </div>
                             <div className="mt-2">
-                                <Link to={status === 'blocked' || contestResult === "Declared Winner" ? '/allContest' : `/payment/${_id}`}><button onClick={handleRegistration} className=" text-sm md:text-lg btn bg-primary hover:bg-secondary">Registration</button></Link>
+                                <Link to={status === 'blocked' || contestResult === "Declared Winner" || (new Date(deadline) < new Date()) ? '' : `/payment/${_id}`}><button onClick={handleRegistration} className=" text-sm md:text-lg btn bg-primary hover:bg-secondary">Registration</button></Link>
                             </div>
                         </div>
                     </div>
