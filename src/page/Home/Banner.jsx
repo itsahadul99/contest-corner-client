@@ -28,7 +28,6 @@ const Banner = ({handleSearch}) => {
                                     1000,
                                 ]}
                                 speed={30}
-                                // style={{ fontSize: '2em', }}
                                 repeat={Infinity}
                             />
                         </div>
