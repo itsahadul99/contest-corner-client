@@ -10,6 +10,7 @@ import BestContestCreator from "./BestContestCreator";
 import LatestWinner from "./LatestWinner";
 import HowItWorks from "./HowItWork";
 import NewsLetter from "./NewsLetter";
+import Faq from "./Faq";
 
 const Home = () => {
     const axiosCommon = useAxiosCommon()
@@ -41,6 +42,7 @@ const Home = () => {
             <LatestWinner />
             <BestContestCreator />
             <HowItWorks />
+            <Faq />
             <NewsLetter />
         </>
     );
