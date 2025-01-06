@@ -38,7 +38,7 @@ const Sidebar = () => {
                         </div>
                     </div>
                     <div className='flex flex-col justify-center items-center mt-5 md:mt-12 rounded-full'>
-                        <img className='h-24 w-24 lg:w-32 lg:h-32 rounded-full' src={user?.photoURL} alt="" />
+                        <img className='h-24 w-24 lg:w-32 lg:h-32 rounded-full border' src={user?.photoURL} alt="Profile img" />
                         <p className='font-bold mt-2'>{user?.email}</p>
                     </div>
                     {/* Nav Items */}

@@ -9,7 +9,7 @@ import CommentModal from "../../../components/CommentModal";
 import { useState } from "react";
 import DashboardHelmet from "../../../components/DashboardHelmet";
 const ManageContests = () => {
-    const [contests, , refetch] = useContests()
+    const [contests, isLoading, refetch] = useContests()
     const axiosSecure = useAxiosSecure()
     const handleConfirm = async id => {
         const updateContest = {
@@ -55,9 +55,12 @@ const ManageContests = () => {
                 <div className="text-[#151515] font-bold my-5 text-2xl uppercase ">
                     <h1>Total Contest:{contests.length}</h1>
                 </div>
-                <table className="table">
+                {isLoading ? <div className="flex justify-center items-center min-h-40">
+                    <div className="w-12 h-12 border-4 border-dashed rounded-full animate-spin border-primary"></div>
+                </div> : <table className="table">
                     <thead>
-                        <tr className="font-inter uppercase bg-primary/70 text-white">
+                        <tr className="font-inter bg-primary/70 text-white *:border uppercase">
+                            <th className="text-center">SL</th>
                             <th>Title</th>
                             <th>Creator Email</th>
                             <th>Status</th>
@@ -66,7 +69,10 @@ const ManageContests = () => {
                     </thead>
                     <tbody>
                         {
-                            contests.map((user) => <tr key={user?._id}>
+                            contests.map((user, idx) => <tr key={user?._id} className="*:border bg-white text-gray-700">
+                                <td className="text-center">
+                                    {idx + 1}
+                                </td>
                                 <td>
                                     {user?.contestName ? user?.contestName : "Not found"}
                                 </td>
@@ -92,7 +98,7 @@ const ManageContests = () => {
                                             <MdDeleteForever size={20} />
                                         </button>
                                         <button
-                                        disabled={user?.comment}
+                                            disabled={user?.comment}
                                             onClick={() => {
                                                 setCommentId(user?._id)
                                                 setIsOpen(true)
@@ -107,7 +113,7 @@ const ManageContests = () => {
                         <CommentModal setModalOpen={setIsOpen} isOpen={isOpen} id={commentId} />
                     </tbody>
 
-                </table>
+                </table>}
             </div>
         </div>
     );

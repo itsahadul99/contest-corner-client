@@ -38,7 +38,7 @@ const DropdownMenu = ({ user, handleDelete, refetch }) => {
     return (
         <div>
             <Menu>
-                <MenuButton disabled={user?.role === 'admin'} className="disabled:cursor-not-allowed inline-flex items-center gap-2 rounded-md bg-primary/80 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-secondary/80 data-[open]:bg-gray-700 data-[focus]:outline-1 data-[focus]:outline-white">
+                <MenuButton disabled={user?.role === 'admin'} className="w-full  disabled:cursor-not-allowed inline-flex justify-center items-center gap-2 rounded-md bg-primary/80 py-1 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-secondary/80 data-[open]:bg-gray-700 data-[focus]:outline-1 data-[focus]:outline-white">
                     Actions
                 </MenuButton>
                 <Transition
